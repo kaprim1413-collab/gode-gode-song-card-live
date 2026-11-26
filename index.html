@@ -1,112 +1,1205 @@
+
 <!doctype html>
 <html lang="id">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#102c25">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#102c25">
 <title>GODE GODE SONG CARD — LIVE SCORE</title>
 <style>
 :root{--felt:#102c25;--felt2:#1e493b;--gold:#f1c76b;--bg:#eef2ed;--panel:#fff;--ink:#18251f;--line:#dce5dc;--muted:#718078;--danger:#a53d32;--glow:#f1c76b55}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#dce9dc 0,var(--bg) 55%);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Arial,sans-serif;transition:background .2s,color .2s}
-.wrap{max-width:1180px;margin:auto;padding:14px}.hero{position:relative;text-align:center;overflow:hidden;border:1px solid #e8ca7c66;border-radius:22px;padding:20px;background:radial-gradient(circle at 50% 0,#386653 0,var(--felt) 70%);color:white;box-shadow:0 16px 40px #102c252b}.hero:before,.hero:after{content:'✦';position:absolute;color:#f1c76b55;font-size:90px;animation:float 6s ease-in-out infinite;pointer-events:none}.hero:before{left:5%;top:4%}.hero:after{right:6%;bottom:-30px;animation-delay:-3s}@keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-12px) rotate(12deg)}}
-.hero h1{position:relative;z-index:1;margin:7px 0;font-size:clamp(27px,5vw,42px);letter-spacing:.09em;text-shadow:0 4px 18px #0006}.brand,.hero p{position:relative;z-index:1}.brand{font-size:11px;letter-spacing:.2em;color:var(--gold);font-weight:900}.hero p{margin:0;color:#d7e4dc;font-size:12px;letter-spacing:.1em}.hero-tools{position:absolute;right:13px;top:12px;z-index:3;display:flex;flex-direction:column;align-items:flex-end;gap:7px}.role-badge{border:1px solid #ffffff70;background:#ffffff20;color:#fff;padding:5px 13px;border-radius:99px;font-size:11px;font-weight:900;letter-spacing:.14em}.theme-toggle{border:1px solid #ffffff55;background:#ffffff18;color:#fff;border-radius:99px;padding:8px 12px;min-height:36px}
-nav{display:flex;gap:8px;overflow:auto;padding:13px 0;scrollbar-width:thin}.tab,button{border:0;border-radius:11px;padding:11px 15px;font-weight:800;cursor:pointer;min-height:42px}.tab{background:#fff;border:1px solid var(--line);white-space:nowrap;color:#53645b}.tab.active,.primary{background:linear-gradient(135deg,#173b30,#285844);color:#fff;box-shadow:0 4px 14px #173b3030}.gold{background:linear-gradient(135deg,#f4d88e,#d9ad4e);color:#292316}.danger{background:#fff0ed;color:#9e382d}.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:17px;margin:0 0 14px;box-shadow:0 9px 28px #102c2510}.panel h2{font-size:18px;margin:0 0 4px}.sub,.meta{color:var(--muted);font-size:12px}.sub{margin:0 0 13px}.meta{margin:5px 0 9px}.hidden{display:none!important}.page{animation:appear .22s ease}@keyframes appear{from{opacity:.5;transform:translateY(4px)}to{opacity:1;transform:none}}
-.notice{display:none;background:#fff5df;color:#76551a;padding:11px;border-radius:10px;margin:12px 0;font-size:12px;overflow-wrap:anywhere}.notice.show{display:block}.status{font-size:11px;color:var(--muted);padding:0 3px 12px}.dot{display:inline-block;width:7px;height:7px;background:#c3ccc5;border-radius:50%;margin-right:6px}.dot.ok{background:#39a36d}.dot.bad{background:#c34e45}.footer{text-align:center;color:#8a968e;font-size:11px;padding:20px}
-.field{display:grid;gap:5px;margin:10px 0}.field label{font-size:12px;font-weight:800;color:#53645b}.field input,.field select{width:100%;padding:12px;border:1px solid #dce4de;border-radius:10px;font:inherit;min-height:46px}.player,.reserve-edit{text-transform:uppercase;text-align:center;letter-spacing:.04em;font-weight:800}.create-players{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}.create-players .field{margin:0}.create-players input{text-align:center;text-transform:uppercase;font-weight:800}.create-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.create-form .field{margin:0}.create-form .create-players,.create-form button{grid-column:1/-1}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.stat{background:#f5f8f5;border:1px solid var(--line);border-radius:12px;padding:12px}.stat b{display:block;font-size:23px;color:var(--felt)}.stat span{font-size:11px;color:var(--muted)}.date-filter{max-width:260px}.league-wrap{overflow-x:auto}.league{width:100%;border-collapse:collapse;min-width:330px}.league th{font-size:10px;letter-spacing:.06em;color:var(--muted);background:#f4f7f4}.league td,.league th{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);font-size:12px}.league td:first-child{font-weight:900;color:var(--muted);width:45px}.league td:nth-child(2){font-weight:850;text-transform:uppercase}.league .num{text-align:right;font-variant-numeric:tabular-nums}.league .pts{font-weight:950;text-align:right;color:#1d6044;font-size:15px}.league tr:first-child{background:#fffaf0}.league tr:first-child td:first-child{color:#b18a32}
-.session{border:1px solid var(--line);border-radius:15px;padding:13px;margin:12px 0;background:linear-gradient(145deg,var(--panel),var(--bg))}.session-title{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}.score-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;-webkit-overflow-scrolling:touch}.score-table{width:100%;min-width:610px;border-collapse:collapse}.score-table th,.score-table td{text-align:center;padding:8px;border-bottom:1px solid var(--line);font-size:12px}.score-table th{background:#f4f7f4;color:#53645b;position:sticky;top:0;z-index:1}.score-table th:first-child,.score-table td:first-child{position:sticky;left:0;background:#f8faf8;z-index:2;font-weight:900}.score-table input{width:100%;min-width:70px;height:50px;text-align:center;border:1.5px solid #cbd9ce;border-radius:9px;font:850 18px system-ui;color:var(--felt);background:#fff;padding:5px}.score-table input:focus{outline:3px solid var(--glow);border-color:#a98535}.score-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.score-actions button{flex:1 1 145px;min-height:46px}.rankline{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;margin:12px 0}.rankbox{background:#f5f8f5;border:1px solid var(--line);border-radius:11px;padding:9px;min-width:0}.rankbox small{display:block;color:var(--muted);font-size:9px;font-weight:900}.rankbox b{display:block;overflow-wrap:anywhere;text-transform:uppercase;font-size:12px}.rankbox span{font-size:12px;font-weight:900}.rankbox.winner{background:#fff7df;border-color:#e8d39a}.score-total{font-weight:900;color:#1d6044}.empty{border:1px dashed #d8e1da;border-radius:13px;padding:24px;text-align:center;color:var(--muted)}.loginbox{max-width:430px;margin:auto}.loginbox .field{margin:10px 0}.reserve-box{background:#f6f2e6;border:1px solid #e9d8a9;padding:12px;border-radius:12px;margin-top:10px}.muted{color:var(--muted)}
-body.dark{--bg:#101b18;--panel:#192923;--ink:#edf4ee;--line:#30463a;--muted:#a3b5a9;background:radial-gradient(ellipse at 50% -20%,#234535 0,#101b18 65%);color:var(--ink)}body.dark .panel,body.dark .session{background:var(--panel);border-color:var(--line);color:var(--ink)}body.dark .tab{background:#1c3027;border-color:#395043;color:#dce9df}body.dark .tab.active,body.dark .primary{background:linear-gradient(135deg,#2a6048,#397653);color:#fff}body.dark .field label,body.dark .league td,body.dark .league th,body.dark .score-table td,body.dark .score-table th{color:var(--ink)}body.dark .field input,body.dark .field select,body.dark .score-table input{background:#102019;color:#f4f7f4;border-color:#405b4a}body.dark .score-table th,body.dark .score-table th:first-child,body.dark .score-table td:first-child{background:#20372b;color:#e8f0e9}body.dark .stat,body.dark .rankbox{background:#20372b;border-color:#405b4a;color:var(--ink)}body.dark .stat b,body.dark .score-total,body.dark .league .pts{color:#f1ce78}body.dark .league th{background:#20372b}body.dark .league tr:first-child{background:#2d3526}body.dark .reserve-box{background:#293729;border-color:#625438}body.dark .danger{background:#4b2925;color:#ffc5bb}body.dark .empty{border-color:#405b4a;color:var(--muted)}body.dark .footer{color:#91a398}
-@media(max-width:700px){.wrap{padding:10px}.hero{padding:14px 12px 17px;border-radius:17px}.hero-tools{position:relative;top:auto;right:auto;align-items:center;margin:0 auto 8px}.hero h1{font-size:clamp(27px,8vw,38px)}.panel{padding:13px;border-radius:15px}.create-form{grid-template-columns:1fr}.create-players{grid-template-columns:repeat(2,minmax(0,1fr))}.create-players .field:last-child:nth-child(odd){grid-column:1/-1}.stats{gap:6px}.stat{padding:9px}.stat b{font-size:20px}.rankline{grid-template-columns:repeat(2,minmax(0,1fr))}.rankbox:last-child:nth-child(odd){grid-column:1/-1}.league td,.league th{padding:9px 8px}.score-table{min-width:610px}.score-table input{min-width:72px;height:54px}.score-actions button{flex:1 1 calc(50% - 8px);font-size:12px}.tab{padding:9px 12px}}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at 50% -20%,#dce9dc 0,var(--bg) 55%);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Arial,sans-serif;transition:background .2s,color .2s}
+.wrap{max-width:1180px;margin:auto;padding:14px}
+.hero{position:relative;text-align:center;overflow:hidden;border:1px solid #e8ca7c66;border-radius:22px;padding:20px;background:radial-gradient(circle at 50% 0,#386653 0,var(--felt) 70%);color:white;box-shadow:0 16px 40px #102c252b}
+.hero:before,.hero:after{content:'✦';position:absolute;color:#f1c76b55;font-size:90px;animation:float 6s ease-in-out infinite;pointer-events:none}
+.hero:before{left:5%;top:4%}
+.hero:after{right:6%;bottom:-30px;animation-delay:-3s}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-12px) rotate(12deg)}}
+.hero h1{position:relative;z-index:1;margin:7px 0;font-size:clamp(27px,5vw,42px);letter-spacing:.09em;text-shadow:0 4px 18px #0006}
+.brand,.hero p{position:relative;z-index:1}
+.brand{font-size:11px;letter-spacing:.2em;color:var(--gold);font-weight:900}
+.hero p{margin:0;color:#d7e4dc;font-size:12px;letter-spacing:.1em}
+.hero-tools{position:absolute;right:13px;top:12px;z-index:3;display:flex;flex-direction:column;align-items:flex-end;gap:7px}
+.role-badge{border:1px solid #ffffff70;background:#ffffff20;color:#fff;padding:5px 13px;border-radius:99px;font-size:11px;font-weight:900;letter-spacing:.14em}
+.theme-toggle{border:1px solid #ffffff55;background:#ffffff18;color:#fff;border-radius:99px;padding:8px 12px;min-height:36px}
+nav{display:flex;gap:8px;overflow:auto;padding:13px 0;scrollbar-width:thin}
+.tab,button{border:0;border-radius:11px;padding:11px 15px;font-weight:800;cursor:pointer;min-height:42px}
+.tab{background:#fff;border:1px solid var(--line);white-space:nowrap;color:#53645b}
+.tab.active,.primary{background:linear-gradient(135deg,#173b30,#285844);color:#fff;box-shadow:0 4px 14px #173b3030}
+.gold{background:linear-gradient(135deg,#f4d88e,#d9ad4e);color:#292316}
+.danger{background:#fff0ed;color:#9e382d}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:17px;margin:0 0 14px;box-shadow:0 9px 28px #102c2510}
+.panel h2{font-size:18px;margin:0 0 4px}
+.sub,.meta{color:var(--muted);font-size:12px}
+.sub{margin:0 0 13px}
+.meta{margin:5px 0 9px}
+.hidden{display:none!important}
+.page{animation:appear .22s ease}
+@keyframes appear{from{opacity:.5;transform:translateY(4px)}to{opacity:1;transform:none}}
+.notice{display:none;background:#fff5df;color:#76551a;padding:11px;border-radius:10px;margin:12px 0;font-size:12px;overflow-wrap:anywhere}
+.notice.show{display:block}
+.status{font-size:11px;color:var(--muted);padding:0 3px 12px}
+.dot{display:inline-block;width:7px;height:7px;background:#c3ccc5;border-radius:50%;margin-right:6px}
+.dot.ok{background:#39a36d}
+.dot.bad{background:#c34e45}
+.footer{text-align:center;color:#8a968e;font-size:11px;padding:20px}
+.field{display:grid;gap:5px;margin:10px 0}
+.field label{font-size:12px;font-weight:800;color:#53645b}
+.field input,.field select{width:100%;padding:12px;border:1px solid #dce4de;border-radius:10px;font:inherit;min-height:46px}
+.player,.reserve-edit{text-transform:uppercase;text-align:center;letter-spacing:.04em;font-weight:800}
+.create-players{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.create-players .field{margin:0}
+.create-players input{text-align:center;text-transform:uppercase;font-weight:800}
+.create-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.create-form .field{margin:0}
+.create-form .create-players,.create-form button{grid-column:1/-1}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.stat{background:#f5f8f5;border:1px solid var(--line);border-radius:12px;padding:12px}
+.stat b{display:block;font-size:23px;color:var(--felt)}
+.stat span{font-size:11px;color:var(--muted)}
+.date-filter{max-width:260px}
+.league-wrap{overflow-x:auto}
+.league{width:100%;border-collapse:collapse;min-width:330px}
+.league th{font-size:10px;letter-spacing:.06em;color:var(--muted);background:#f4f7f4}
+.league td,.league th{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);font-size:12px}
+.league td:first-child{font-weight:900;color:var(--muted);width:45px}
+.league td:nth-child(2){font-weight:850;text-transform:uppercase}
+.league .num{text-align:right;font-variant-numeric:tabular-nums}
+.league .pts{font-weight:950;text-align:right;color:#1d6044;font-size:15px}
+.league tr:first-child{background:#fffaf0}
+.league tr:first-child td:first-child{color:#b18a32}
+.session{border:1px solid var(--line);border-radius:15px;padding:13px;margin:12px 0;background:linear-gradient(145deg,var(--panel),var(--bg))}
+.session-title{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+.score-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;-webkit-overflow-scrolling:touch}
+.score-table{width:100%;min-width:610px;border-collapse:collapse}
+.score-table th,.score-table td{text-align:center;padding:8px;border-bottom:1px solid var(--line);font-size:12px}
+.score-table th{background:#f4f7f4;color:#53645b;position:sticky;top:0;z-index:1}
+.score-table th:first-child,.score-table td:first-child{position:sticky;left:0;background:#f8faf8;z-index:2;font-weight:900}
+.score-table input{width:100%;min-width:70px;height:50px;text-align:center;border:1.5px solid #cbd9ce;border-radius:9px;font:850 18px system-ui;color:var(--felt);background:#fff;padding:5px}
+.score-table input:focus{outline:3px solid var(--glow);border-color:#a98535}
+.score-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.score-actions button{flex:1 1 145px;min-height:46px}
+.rankline{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;margin:12px 0}
+.rankbox{background:#f5f8f5;border:1px solid var(--line);border-radius:11px;padding:9px;min-width:0}
+.rankbox small{display:block;color:var(--muted);font-size:9px;font-weight:900}
+.rankbox b{display:block;overflow-wrap:anywhere;text-transform:uppercase;font-size:12px}
+.rankbox span{font-size:12px;font-weight:900}
+.rankbox.winner{background:#fff7df;border-color:#e8d39a}
+.score-total{font-weight:900;color:#1d6044}
+.empty{border:1px dashed #d8e1da;border-radius:13px;padding:24px;text-align:center;color:var(--muted)}
+.loginbox{max-width:430px;margin:auto}
+.loginbox .field{margin:10px 0}
+.reserve-box{background:#f6f2e6;border:1px solid #e9d8a9;padding:12px;border-radius:12px;margin-top:10px}
+.muted{color:var(--muted)}
+body.dark{--bg:#101b18;--panel:#192923;--ink:#edf4ee;--line:#30463a;--muted:#a3b5a9;background:radial-gradient(ellipse at 50% -20%,#234535 0,#101b18 65%);color:var(--ink)}
+body.dark .panel,body.dark .session{background:var(--panel);border-color:var(--line);color:var(--ink)}
+body.dark .tab{background:#1c3027;border-color:#395043;color:#dce9df}
+body.dark .tab.active,body.dark .primary{background:linear-gradient(135deg,#2a6048,#397653);color:#fff}
+body.dark .field label,body.dark .league td,body.dark .league th,body.dark .score-table td,body.dark .score-table th{color:var(--ink)}
+body.dark .field input,body.dark .field select,body.dark .score-table input{background:#102019;color:#f4f7f4;border-color:#405b4a}
+body.dark .score-table th,body.dark .score-table th:first-child,body.dark .score-table td:first-child{background:#20372b;color:#e8f0e9}
+body.dark .stat,body.dark .rankbox{background:#20372b;border-color:#405b4a;color:var(--ink)}
+body.dark .stat b,body.dark .score-total,body.dark .league .pts{color:#f1ce78}
+body.dark .league th{background:#20372b}
+body.dark .league tr:first-child{background:#2d3526}
+body.dark .reserve-box{background:#293729;border-color:#625438}
+body.dark .danger{background:#4b2925;color:#ffc5bb}
+body.dark .empty{border-color:#405b4a;color:var(--muted)}
+body.dark .footer{color:#91a398}
+@media(max-width:700px){
+.wrap{padding:10px}
+.hero{padding:14px 12px 17px;border-radius:17px}
+.hero-tools{position:relative;top:auto;right:auto;align-items:center;margin:0 auto 8px}
+.hero h1{font-size:clamp(27px,8vw,38px)}
+.panel{padding:13px;border-radius:15px}
+.create-form{grid-template-columns:1fr}
+.create-players{grid-template-columns:repeat(2,minmax(0,1fr))}
+.create-players .field:last-child:nth-child(odd){grid-column:1/-1}
+.stats{gap:6px}
+.stat{padding:9px}
+.stat b{font-size:20px}
+.rankline{grid-template-columns:repeat(2,minmax(0,1fr))}
+.rankbox:last-child:nth-child(odd){grid-column:1/-1}
+.league td,.league th{padding:9px 8px}
+.score-table{min-width:610px}
+.score-table input{min-width:72px;height:54px}
+.score-actions button{flex:1 1 calc(50% - 8px);font-size:12px}
+.tab{padding:9px 12px}
+}
 </style>
 </head>
-<body><div class="wrap">
-<header class="hero"><div class="hero-tools"><div id="roleBadge" class="role-badge">TAMU</div><button id="themeToggle" class="theme-toggle" type="button">☾ Mode malam</button></div><div class="brand">♠ GODE GODE PRESENTS ♥</div><h1>GODE GODE<br>SONG CARD</h1><p>♣ LIVE SCORE · CARD GAME ARENA ♦</p></header>
-<nav id="nav"><button class="tab active" data-page="live">Live Score</button><button class="tab" data-page="tournament">Turnamen</button><button class="tab" data-page="knockout">Sistem Gugur</button><button class="tab" data-page="history">Riwayat</button><button class="tab" data-page="admin">Akun Admin</button></nav>
-<div id="notice" class="notice"></div><div class="status"><span id="dot" class="dot"></span><span id="connection">Menghubungkan ke Firebase…</span></div>
-<section id="page-live" class="page"><div class="panel"><h2>LIVE SCORE</h2><p class="sub">Klasemen berjalan otomatis setiap kali admin menyimpan skor.</p><div class="field date-filter"><label>Tanggal pertandingan</label><input id="liveDate" type="date"></div><div id="live"><div class="empty">Belum ada skor.</div></div></div><div class="panel"><h2>Ringkasan Arena</h2><div class="stats" id="stats"></div></div></section>
-<section id="page-tournament" class="page hidden"><div id="tournamentAdmin" class="panel hidden"><h2>Turnamen · Panel Pertandingan</h2><p class="sub">Khusus admin: buat putaran dan masukkan skor turnamen dari halaman ini.</p><form id="tournamentForm" class="create-form"><div class="field"><label>Nama sesi / meja</label><input name="name" placeholder="Turnamen Meja 1" required></div><div class="field"><label>Tanggal turnamen</label><input name="date" type="date" required></div><div id="tournamentPlayers" class="create-players"></div><button class="gold" type="submit">Buat Putaran Turnamen</button></form></div><div class="panel"><h2>Klasemen Turnamen</h2><p class="sub" id="tournamentAudience">Pilih tanggal untuk melihat klasemen.</p><div class="field date-filter"><label>Pilih tanggal</label><input id="tournamentDate" type="date"></div><div id="tournamentStandings"></div></div><div id="tournamentManagePanel" class="panel hidden"><h2>Input Skor Turnamen</h2><p class="sub">Simpan skor untuk memperbarui Live Score semua perangkat. Nilai tetap berada di formulir.</p><div id="tournamentManage"></div></div></section>
-<section id="page-knockout" class="page hidden"><div id="knockoutAdmin" class="panel hidden"><h2>Sistem Gugur · Panel Pertandingan</h2><p class="sub">Khusus admin: buat pertandingan dan input skor dari halaman ini.</p><form id="knockoutForm" class="create-form"><div id="knockoutPlayers" class="create-players"></div><div class="field"><label>Pemain cadangan (pisahkan dengan koma)</label><input name="reserves" class="reserve-edit" placeholder="CADANGAN 1, CADANGAN 2"></div><button class="gold" type="submit">Buat Pertandingan Sistem Gugur</button></form></div><div class="panel"><h2>Klasemen Sistem Gugur</h2><p class="sub" id="knockoutAudience">Pilih tanggal untuk melihat klasemen.</p><div class="field date-filter"><label>Pilih tanggal</label><input id="knockoutDate" type="date"></div><div id="knockoutStandings"></div></div><div id="knockoutManagePanel" class="panel hidden"><h2>Input Skor Sistem Gugur</h2><p class="sub">Skor yang disimpan langsung masuk Live Score dan tidak mengosongkan formulir.</p><div id="knockoutManage"></div></div></section>
-<section id="page-history" class="page hidden"><div class="panel"><h2>Riwayat Pertandingan</h2><p class="sub">Riwayat dapat dihapus admin. Tamu hanya dapat melihat.</p><div id="history"></div></div></section>
-<section id="page-admin" class="page hidden"><div id="login" class="panel loginbox"><h2>Login administrator</h2><p class="sub">Masuk menggunakan akun admin yang sudah terdaftar.</p><form id="loginForm"><div class="field"><label>Email atau Username</label><input id="username" type="text" autocomplete="username" placeholder="Masukkan email atau DogyGode2" required></div><div class="field"><label>Kata sandi</label><input id="password" type="password" autocomplete="current-password" placeholder="Masukkan password" required></div><button class="primary" style="width:100%">Masuk</button></form></div><div id="admin" class="panel hidden"><div class="session-title"><div><h2>Akun Administrator</h2><p class="sub" id="adminEmail"></p></div><button id="logout" class="danger">Keluar</button></div><p class="sub">Penginputan turnamen dan sistem gugur tersedia pada menu masing-masing.</p><hr style="border:0;border-top:1px solid var(--line);margin:16px 0"><h3 style="margin:0 0 8px">Ganti password</h3><p class="sub">Masukkan password lama untuk verifikasi, lalu buat password baru.</p><form id="changePasswordForm"><div class="field"><label>Password saat ini</label><input id="currentPassword" type="password" autocomplete="current-password" required></div><div class="field"><label>Password baru (minimal 6 karakter)</label><input id="newPassword" type="password" autocomplete="new-password" minlength="6" required></div><div class="field"><label>Ulangi password baru</label><input id="confirmPassword" type="password" autocomplete="new-password" minlength="6" required></div><button class="gold" type="submit">GANTI PASSWORD</button></form></div></section>
-<div class="footer">GODE GODE SONG CARD · LIVE SCORE SYSTEM</div></div>
+
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="hero-tools">
+    <div id="roleBadge" class="role-badge">TAMU</div>
+    <button id="themeToggle" class="theme-toggle" type="button">☾ Mode malam</button>
+  </div>
+  <div class="brand">♠ GODE GODE PRESENTS ♥</div>
+  <h1>GODE GODE<br>SONG CARD</h1>
+  <p>♣ LIVE SCORE · CARD GAME ARENA ♦</p>
+</header>
+
+<nav id="nav">
+  <button class="tab active" data-page="live">Live Score</button>
+  <button class="tab" data-page="tournament">Turnamen</button>
+  <button class="tab" data-page="knockout">Sistem Gugur</button>
+  <button class="tab" data-page="history">Riwayat</button>
+  <button class="tab" data-page="admin">Akun Admin</button>
+</nav>
+
+<div id="notice" class="notice"></div>
+<div class="status">
+  <span id="dot" class="dot"></span>
+  <span id="connection">Menghubungkan ke Firebase…</span>
+</div>
+
+<section id="page-live" class="page">
+  <div class="panel">
+    <h2>LIVE SCORE</h2>
+    <p class="sub">Klasemen berjalan otomatis setiap kali admin menyimpan skor.</p>
+    <div class="field date-filter">
+      <label>Tanggal pertandingan</label>
+      <input id="liveDate" type="date">
+    </div>
+    <div id="live"><div class="empty">Belum ada skor.</div></div>
+  </div>
+  <div class="panel">
+    <h2>Ringkasan Arena</h2>
+    <div class="stats" id="stats"></div>
+  </div>
+</section>
+
+<section id="page-tournament" class="page hidden">
+  <div id="tournamentAdmin" class="panel hidden">
+    <h2>Turnamen · Panel Pertandingan</h2>
+    <p class="sub">Khusus admin: buat putaran dan masukkan skor turnamen dari halaman ini.</p>
+    <form id="tournamentForm" class="create-form">
+      <div class="field">
+        <label>Nama sesi / meja</label>
+        <input name="name" placeholder="Turnamen Meja 1" required>
+      </div>
+      <div class="field">
+        <label>Tanggal turnamen</label>
+        <input name="date" type="date" required>
+      </div>
+      <div id="tournamentPlayers" class="create-players"></div>
+      <button class="gold" type="submit">Buat Putaran Turnamen</button>
+    </form>
+  </div>
+
+  <div class="panel">
+    <h2>Klasemen Turnamen</h2>
+    <p class="sub" id="tournamentAudience">Pilih tanggal untuk melihat klasemen.</p>
+    <div class="field date-filter">
+      <label>Pilih tanggal</label>
+      <input id="tournamentDate" type="date">
+    </div>
+    <div id="tournamentStandings"></div>
+  </div>
+
+  <div id="tournamentManagePanel" class="panel hidden">
+    <h2>Input Skor Turnamen</h2>
+    <p class="sub">Simpan skor untuk memperbarui Live Score semua perangkat. Nilai tetap berada di formulir.</p>
+    <div id="tournamentManage"></div>
+  </div>
+</section>
+
+<section id="page-knockout" class="page hidden">
+  <div id="knockoutAdmin" class="panel hidden">
+    <h2>Sistem Gugur · Panel Pertandingan</h2>
+    <p class="sub">Khusus admin: buat pertandingan dan input skor dari halaman ini.</p>
+    <form id="knockoutForm" class="create-form">
+      <div id="knockoutPlayers" class="create-players"></div>
+      <div class="field">
+        <label>Pemain cadangan (pisahkan dengan koma)</label>
+        <input name="reserves" class="reserve-edit" placeholder="CADANGAN 1, CADANGAN 2">
+      </div>
+      <button class="gold" type="submit">Buat Pertandingan Sistem Gugur</button>
+    </form>
+  </div>
+
+  <div class="panel">
+    <h2>Klasemen Sistem Gugur</h2>
+    <p class="sub" id="knockoutAudience">Pilih tanggal untuk melihat klasemen.</p>
+    <div class="field date-filter">
+      <label>Pilih tanggal</label>
+      <input id="knockoutDate" type="date">
+    </div>
+    <div id="knockoutStandings"></div>
+  </div>
+
+  <div id="knockoutManagePanel" class="panel hidden">
+    <h2>Input Skor Sistem Gugur</h2>
+    <p class="sub">Skor yang disimpan langsung masuk Live Score dan tidak mengosongkan formulir.</p>
+    <div id="knockoutManage"></div>
+  </div>
+</section>
+
+<section id="page-history" class="page hidden">
+  <div class="panel">
+    <h2>Riwayat Pertandingan</h2>
+    <p class="sub">Riwayat dapat dihapus admin. Tamu hanya dapat melihat.</p>
+    <div id="history"></div>
+  </div>
+</section>
+
+<section id="page-admin" class="page hidden">
+  <div id="login" class="panel loginbox">
+    <h2>Login administrator</h2>
+    <p class="sub">Masuk menggunakan akun admin yang sudah terdaftar.</p>
+    <form id="loginForm">
+      <div class="field">
+        <label>Email atau Username</label>
+        <input id="username" type="text" autocomplete="username" placeholder="Masukkan email atau DogyGode2" required>
+      </div>
+      <div class="field">
+        <label>Kata sandi</label>
+        <input id="password" type="password" autocomplete="current-password" placeholder="Masukkan password" required>
+      </div>
+      <button class="primary" type="submit" style="width:100%">Masuk</button>
+    </form>
+  </div>
+
+  <div id="admin" class="panel hidden">
+    <div class="session-title">
+      <div>
+        <h2>Akun Administrator</h2>
+        <p class="sub" id="adminEmail"></p>
+      </div>
+      <button id="logout" class="danger">Keluar</button>
+    </div>
+
+    <p class="sub">Penginputan turnamen dan sistem gugur tersedia pada menu masing-masing.</p>
+
+    <hr style="border:0;border-top:1px solid var(--line);margin:16px 0">
+
+    <button id="togglePasswordPanel" class="gold" type="button">
+      GANTI PASSWORD
+    </button>
+
+    <div id="changePasswordPanel" class="hidden" style="margin-top:15px">
+      <h3 style="margin:0 0 8px">Ubah Password Administrator</h3>
+      <p class="sub">Verifikasi password lama sebelum membuat password baru.</p>
+
+      <form id="changePasswordForm">
+        <div class="field">
+          <label>Password saat ini</label>
+          <input id="currentPassword" type="password" autocomplete="current-password" required>
+        </div>
+
+        <div class="field">
+          <label>Password baru (minimal 6 karakter)</label>
+          <input id="newPassword" type="password" autocomplete="new-password" minlength="6" required>
+        </div>
+
+        <div class="field">
+          <label>Ulangi password baru</label>
+          <input id="confirmPassword" type="password" autocomplete="new-password" minlength="6" required>
+        </div>
+
+        <button class="primary" type="submit">SIMPAN PASSWORD BARU</button>
+        <button id="cancelPasswordChange" class="danger" type="button">BATAL</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<div class="footer">GODE GODE SONG CARD · LIVE SCORE SYSTEM</div>
+</div>
+
 <script type="module">
 import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import{getAuth,onAuthStateChanged,signInWithEmailAndPassword,signOut,EmailAuthProvider,reauthenticateWithCredential,updatePassword}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import{getFirestore,collection,doc,addDoc,getDoc,onSnapshot,updateDoc,serverTimestamp,query,orderBy,deleteDoc}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-const firebaseConfig={apiKey:"AIzaSyDF-XHAAIj6ob6EeIUqZqBGziw4ttFdgzA",authDomain:"gode-gode-song-card-live.firebaseapp.com",projectId:"gode-gode-song-card-live",storageBucket:"gode-gode-song-card-live.firebasestorage.app",messagingSenderId:"942735757930",appId:"1:942735757930:web:de63ba66c1b2f2955a7013",measurementId:"G-3X8XG9YVR6"};
+import{
+  getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+  EmailAuthProvider,
+  reauthenticateWithCredential,
+  updatePassword
+}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import{
+  getFirestore,
+  collection,
+  doc,
+  addDoc,
+  getDoc,
+  onSnapshot,
+  updateDoc,
+  serverTimestamp,
+  query,
+  orderBy,
+  deleteDoc
+}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig={
+  apiKey:"AIzaSyDF-XHAAIj6ob6EeIUqZqBGziw4ttFdgzA",
+  authDomain:"gode-gode-song-card-live.firebaseapp.com",
+  projectId:"gode-gode-song-card-live",
+  storageBucket:"gode-gode-song-card-live.firebasestorage.app",
+  messagingSenderId:"942735757930",
+  appId:"1:942735757930:web:de63ba66c1b2f2955a7013",
+  measurementId:"G-3X8XG9YVR6"
+};
+
 const $=id=>document.getElementById(id);
-const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-function msg(s){$("notice").textContent=s;$("notice").classList.add("show");}
-function status(s,k=""){$("connection").textContent=s;$("dot").className="dot "+k;}
+
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({
+  "&":"&amp;",
+  "<":"&lt;",
+  ">":"&gt;",
+  '"':"&quot;",
+  "'":"&#39;"
+}[c]));
+
+function msg(s){
+  $("notice").textContent=s;
+  $("notice").classList.add("show");
+}
+
+function status(s,k=""){
+  $("connection").textContent=s;
+  $("dot").className="dot "+k;
+}
+
 let auth,db,user=null,admin=false,sessions=[];
-const today=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;};
-const dateKey=v=>{if(!v)return"";if(typeof v==="string"){const iso=v.match(/^(\d{4}-\d{2}-\d{2})/);if(iso)return iso[1];}const d=new Date(v);return isNaN(d)?"":`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;};
-const dateLabel=v=>{if(!v)return"";const d=new Date(v);return isNaN(d)?String(v):d.toLocaleString("id-ID",{dateStyle:"medium",timeStyle:"short"});};
-const blankRows=()=>Array.from({length:6},(_,i)=>({set:"S"+(i+1),scores:[0,0,0,0,0]}));
-const localStamp=()=>{const d=new Date();return `${today()}T${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}:${String(d.getSeconds()).padStart(2,"0")}`;};
-// Live Score membaca skor terbitan. Jika dokumen lama memiliki liveScoreRows
-// kosong tetapi scoreRows sudah berisi angka, gunakan scoreRows agar poin tidak tertutup nol.
-function rowsHavePoints(rows){return Array.isArray(rows)&&rows.some(row=>Array.isArray(row.scores)&&row.scores.some(value=>Number(value)!==0));}
+
+const today=()=>{
+  const d=new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+};
+
+const dateKey=v=>{
+  if(!v)return"";
+  if(typeof v==="string"){
+    const iso=v.match(/^(\d{4}-\d{2}-\d{2})/);
+    if(iso)return iso[1];
+  }
+  const d=new Date(v);
+  return isNaN(d)?"":`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+};
+
+const dateLabel=v=>{
+  if(!v)return"";
+  const d=new Date(v);
+  return isNaN(d)?String(v):d.toLocaleString("id-ID",{dateStyle:"medium",timeStyle:"short"});
+};
+
+const blankRows=()=>Array.from({length:6},(_,i)=>({
+  set:"S"+(i+1),
+  scores:[0,0,0,0,0]
+}));
+
+const localStamp=()=>{
+  const d=new Date();
+  return `${today()}T${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}:${String(d.getSeconds()).padStart(2,"0")}`;
+};
+
+function rowsHavePoints(rows){
+  return Array.isArray(rows)&&rows.some(row=>
+    Array.isArray(row.scores)&&row.scores.some(value=>Number(value)!==0)
+  );
+}
+
 function rowsOf(s){
- const published=Array.isArray(s.liveScoreRows)&&s.liveScoreRows.length===6?s.liveScoreRows:null;
- const saved=Array.isArray(s.scoreRows)&&s.scoreRows.length===6?s.scoreRows:null;
- if(rowsHavePoints(published))return published;
- if(rowsHavePoints(saved))return saved;
- return published||saved||blankRows();
+  const published=Array.isArray(s.liveScoreRows)&&s.liveScoreRows.length===6?s.liveScoreRows:null;
+  const saved=Array.isArray(s.scoreRows)&&s.scoreRows.length===6?s.scoreRows:null;
+
+  if(rowsHavePoints(published))return published;
+  if(rowsHavePoints(saved))return saved;
+
+  return published||saved||blankRows();
 }
-function playerTotal(s,name,index){const base=Number(s.playerTotals?.[name])||0;return base+rowsOf(s).reduce((sum,row)=>sum+(Number(row.scores?.[index])||0),0);}
-function totals(s){return(s.players||[]).map((name,index)=>({name,points:playerTotal(s,name,index),index})).sort((a,b)=>b.points-a.points||a.index-b.index);}
-function aggregate(list){const map=new Map();for(const s of list){(s.players||[]).forEach((name,index)=>{const key=name.toLocaleUpperCase("id-ID");const old=map.get(key)||{name:key,points:0,played:0};old.points+=playerTotal(s,name,index);old.played+=rowsOf(s).filter(row=>Number(row.scores?.[index])!==0).length;map.set(key,old);});Object.entries(s.playerTotals||{}).forEach(([name,points])=>{if(!(s.players||[]).includes(name)){const key=name.toLocaleUpperCase("id-ID"),old=map.get(key)||{name:key,points:0,played:0};old.points+=Number(points)||0;map.set(key,old);}});}return[...map.values()].sort((a,b)=>b.points-a.points||a.name.localeCompare(b.name));}
-function leagueHTML(list){if(!list.length)return'<div class="empty">Belum ada skor untuk tanggal ini.</div>';return`<div class="league-wrap"><table class="league"><thead><tr><th>POS</th><th>PEMAIN</th><th class="num">MAIN</th><th class="num">POIN</th></tr></thead><tbody>${list.map((p,i)=>`<tr><td>${i+1}</td><td>${esc(p.name)}</td><td class="num">${p.played}</td><td class="pts">${p.points}</td></tr>`).join("")}</tbody></table></div>`;}
-function rankHTML(s){const a=totals(s);return`<div class="rankline">${a.map((p,i)=>`<div class="rankbox ${i===0?"winner":""}"><small>${i===0?"TOP / UNGGUL":i===a.length-1?"LOW #1":i===a.length-2?"LOW #2":"POSISI "+(i+1)}</small><b>${esc(p.name)}</b><span>${p.points} poin</span></div>`).join("")}</div>`;}
-function scoreCard(s,editable=false){const players=s.players||[],rows=rowsOf(s),sorted=totals(s);return`<article class="session" data-id="${s.id}"><div class="session-title"><b>${esc(s.name||"SISTEM GUGUR")}</b><span class="meta">${s.type==="gugur"?"Sistem gugur":"Turnamen"} · ${esc(dateLabel(s.date))}</span></div>${rankHTML(s)}<div class="score-wrap"><table class="score-table"><thead><tr><th>SET</th>${players.map(n=>`<th>${esc(n)}</th>`).join("")}</tr></thead><tbody>${rows.map((row,ri)=>`<tr><td>${esc(row.set||("S"+(ri+1)))}</td>${players.map((n,pi)=>editable?`<td><input type="number" inputmode="decimal" step="1" data-row="${ri}" data-player="${pi}" aria-label="${esc(row.set)} ${esc(n)}" value="${Number(row.scores?.[pi])||0}"></td>`:`<td>${Number(row.scores?.[pi])||0}</td>`).join("")}</tr>`).join("")}<tr><td><b>TOTAL</b></td>${players.map((n,pi)=>`<td class="score-total" ${editable?`data-total="${pi}"`:""}>${sorted.find(x=>x.index===pi)?.points||0}</td>`).join("")}</tr></tbody></table></div>${editable?`<div class="score-actions"><button class="primary save" data-id="${s.id}">SIMPAN SKOR</button><button class="gold reset-input" data-id="${s.id}">RESET INPUT</button><button class="danger delete-session" data-id="${s.id}">HAPUS RIWAYAT</button>${s.type==="gugur"?`<button class="gold finish-round" data-id="${s.id}">SELESAIKAN 6 SET & GANTI 2 TERBAWAH</button>`:""}</div>${s.type==="gugur"?`<div class="reserve-box"><b>Kelola pemain cadangan</b><div class="field"><label>Daftar cadangan (pisahkan koma)</label><input class="reserve-edit" value="${esc((s.reserves||[]).join(", "))}" placeholder="CADANGAN 1, CADANGAN 2"></div><button class="gold save-reserves" data-id="${s.id}">SIMPAN CADANGAN</button><p class="meta">Nama cadangan dapat diubah kapan saja, termasuk saat pertandingan berlangsung.</p></div>`:""}<p class="meta">Simpan Skor tidak mengosongkan formulir. Reset Input hanya mengosongkan kolom sementara dan tidak menghapus Live Score.</p><div class="meta winner-msg" aria-live="polite"></div>`:""}</article>`;}
-function renderLive(){const date=$("liveDate").value||today();const list=sessions.filter(s=>dateKey(s.date)===date);const all=aggregate(list);const details=list.map(s=>`<div class="session"><div class="session-title"><b>${esc(s.name||"SISTEM GUGUR")}</b><span class="meta">${s.type==="gugur"?"Sistem Gugur":"Turnamen"} · ${esc(dateLabel(s.date))}</span></div>${rankHTML(s)}<div class="score-wrap"><table class="score-table"><thead><tr><th>SET</th>${(s.players||[]).map(n=>`<th>${esc(n)}</th>`).join("")}</tr></thead><tbody>${rowsOf(s).map((r,i)=>`<tr><td>${esc(r.set||("S"+(i+1)))}</td>${(s.players||[]).map((n,pi)=>`<td>${Number(r.scores?.[pi])||0}</td>`).join("")}</tr>`).join("")}<tr><td><b>TOTAL</b></td>${(s.players||[]).map((n,pi)=>`<td class="score-total">${playerTotal(s,n,pi)}</td>`).join("")}</tr></tbody></table></div></div>`).join("");$("live").innerHTML=(all.length?`<h3>Klasemen Gabungan</h3>${leagueHTML(all)}`:'<div class="empty">Belum ada skor tersimpan untuk tanggal ini.</div>')+(details?`<h3 style="margin-top:18px">Hasil per pertandingan · Juara dan Terendah</h3>${details}`:"");$("stats").innerHTML=`<div class="stat"><b>${list.length}</b><span>Pertandingan</span></div><div class="stat"><b>${list.reduce((n,s)=>n+rowsOf(s).length,0)}</b><span>Set tercatat</span></div><div class="stat"><b>${all.length}</b><span>Pemain terdata</span></div>`;}
-function renderType(type){const isT=type==="turnamen",key=isT?"tournament":"knockout",dateInput=$(isT?"tournamentDate":"knockoutDate"),adminPanel=$(isT?"tournamentAdmin":"knockoutAdmin"),managePanel=$(isT?"tournamentManagePanel":"knockoutManagePanel"),standings=$(isT?"tournamentStandings":"knockoutStandings"),manage=$(isT?"tournamentManage":"knockoutManage"),audience=$(isT?"tournamentAudience":"knockoutAudience");adminPanel.classList.toggle("hidden",!admin);managePanel.classList.toggle("hidden",!admin);audience.textContent=admin?"Klasemen dan penginputan khusus admin.":"Tampilan tamu: klasemen saja. Pilih tanggal untuk melihat hasil.";if(!dateInput.value)dateInput.value=today();const selected=sessions.filter(s=>s.type===type&&dateKey(s.date)===dateInput.value);standings.innerHTML=leagueHTML(aggregate(selected));if(admin)manage.innerHTML=selected.map(s=>scoreCard(s,true)).join("")||'<div class="empty">Belum ada pertandingan pada tanggal ini. Buat putaran di atas.</div>';else manage.innerHTML="";}
-function renderHistory(){const list=[...sessions].sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));$("history").innerHTML=list.length?list.map(s=>`<div class="session"><div class="session-title"><b>${esc(s.name||"SISTEM GUGUR")}</b><span class="meta">${esc(dateLabel(s.date))} · ${s.type==="gugur"?"Sistem Gugur":"Turnamen"}</span></div>${rankHTML(s)}${admin?`<button class="danger history-delete" data-id="${s.id}">Hapus Riwayat Ini</button>`:""}</div>`).join(""):'<div class="empty">Belum ada riwayat.</div>';}
-function renderAdmin(){ $("login").classList.toggle("hidden",!!user);$("admin").classList.toggle("hidden",!user||!admin);$("roleBadge").textContent=admin?"ADMIN":"TAMU";if(user&&admin)$("adminEmail").textContent="Username: DogyGode2";else if(user&&!admin)msg("Akun berhasil masuk, tetapi belum terdaftar sebagai admin.");}
-function render(){const drafts={};["tournamentManage","knockoutManage"].forEach(id=>{const area=$(id);area.querySelectorAll("article[data-id]").forEach(card=>{const vals={};card.querySelectorAll("input[data-row]").forEach(input=>{vals[input.dataset.row+":"+input.dataset.player]=input.value;});drafts[card.dataset.id]=vals;});});renderLive();renderType("turnamen");renderType("gugur");Object.entries(drafts).forEach(([sid,vals])=>{const card=document.querySelector(`article[data-id="${sid}"]`);if(!card)return;Object.entries(vals).forEach(([key,value])=>{const [r,p]=key.split(":");const input=card.querySelector(`input[data-row="${r}"][data-player="${p}"]`);if(input)input.value=value;});card.querySelectorAll("[data-total]").forEach(cell=>{const pi=cell.dataset.total;let sum=0;card.querySelectorAll(`input[data-player="${pi}"]`).forEach(input=>sum+=Number(input.value)||0);cell.textContent=sum;});});renderHistory();renderAdmin();}
-function setPlayerInputs(target){target.innerHTML=[1,2,3,4,5].map(i=>`<div class="field"><label>Nama pemain ${i}</label><input class="player" name="player${i}" required></div>`).join("");}
-setPlayerInputs($("tournamentPlayers"));setPlayerInputs($("knockoutPlayers"));["liveDate","tournamentDate","knockoutDate"].forEach(id=>$(id).value=today());
-const darkSaved=localStorage.getItem("ggsc-dark")==="1";document.body.classList.toggle("dark",darkSaved);$("themeToggle").textContent=darkSaved?"☀ Mode siang":"☾ Mode malam";$("themeToggle").onclick=()=>{document.body.classList.toggle("dark");const on=document.body.classList.contains("dark");localStorage.setItem("ggsc-dark",on?"1":"0");$("themeToggle").textContent=on?"☀ Mode siang":"☾ Mode malam";};
-$("nav").onclick=e=>{const b=e.target.closest("[data-page]");if(!b)return;document.querySelectorAll(".page").forEach(p=>p.classList.add("hidden"));$("page-"+b.dataset.page).classList.remove("hidden");document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t===b));};
-$("liveDate").onchange=renderLive;$("tournamentDate").onchange=()=>renderType("turnamen");$("knockoutDate").onchange=()=>renderType("gugur");
-document.addEventListener("input",e=>{if(e.target.matches(".player,.reserve-edit")){const pos=e.target.selectionStart;e.target.value=e.target.value.toLocaleUpperCase("id-ID");try{e.target.setSelectionRange(pos,pos);}catch(_){}}});
+
+function playerTotal(s,name,index){
+  const base=Number(s.playerTotals?.[name])||0;
+  return base+rowsOf(s).reduce((sum,row)=>
+    sum+(Number(row.scores?.[index])||0),0
+  );
+}
+
+function totals(s){
+  return(s.players||[]).map((name,index)=>({
+    name,
+    points:playerTotal(s,name,index),
+    index
+  })).sort((a,b)=>b.points-a.points||a.index-b.index);
+}
+
+function aggregate(list){
+  const map=new Map();
+
+  for(const s of list){
+    (s.players||[]).forEach((name,index)=>{
+      const key=name.toLocaleUpperCase("id-ID");
+      const old=map.get(key)||{name:key,points:0,played:0};
+
+      old.points+=playerTotal(s,name,index);
+      old.played+=rowsOf(s).filter(row=>
+        Number(row.scores?.[index])!==0
+      ).length;
+
+      map.set(key,old);
+    });
+
+    Object.entries(s.playerTotals||{}).forEach(([name,points])=>{
+      if(!(s.players||[]).includes(name)){
+        const key=name.toLocaleUpperCase("id-ID");
+        const old=map.get(key)||{name:key,points:0,played:0};
+        old.points+=Number(points)||0;
+        map.set(key,old);
+      }
+    });
+  }
+
+  return[...map.values()].sort((a,b)=>
+    b.points-a.points||a.name.localeCompare(b.name)
+  );
+}
+
+function leagueHTML(list){
+  if(!list.length)return'<div class="empty">Belum ada skor untuk tanggal ini.</div>';
+
+  return`<div class="league-wrap">
+    <table class="league">
+      <thead>
+        <tr>
+          <th>POS</th>
+          <th>PEMAIN</th>
+          <th class="num">MAIN</th>
+          <th class="num">POIN</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${list.map((p,i)=>`<tr>
+          <td>${i+1}</td>
+          <td>${esc(p.name)}</td>
+          <td class="num">${p.played}</td>
+          <td class="pts">${p.points}</td>
+        </tr>`).join("")}
+      </tbody>
+    </table>
+  </div>`;
+}
+
+function rankHTML(s){
+  const a=totals(s);
+
+  return`<div class="rankline">
+    ${a.map((p,i)=>`<div class="rankbox ${i===0?"winner":""}">
+      <small>${i===0?"TOP / UNGGUL":i===a.length-1?"LOW #1":i===a.length-2?"LOW #2":"POSISI "+(i+1)}</small>
+      <b>${esc(p.name)}</b>
+      <span>${p.points} poin</span>
+    </div>`).join("")}
+  </div>`;
+}
+
+function scoreCard(s,editable=false){
+  const players=s.players||[];
+  const rows=rowsOf(s);
+  const sorted=totals(s);
+
+  return`<article class="session" data-id="${s.id}">
+    <div class="session-title">
+      <b>${esc(s.name||"SISTEM GUGUR")}</b>
+      <span class="meta">${s.type==="gugur"?"Sistem gugur":"Turnamen"} · ${esc(dateLabel(s.date))}</span>
+    </div>
+
+    ${rankHTML(s)}
+
+    <div class="score-wrap">
+      <table class="score-table">
+        <thead>
+          <tr>
+            <th>SET</th>
+            ${players.map(n=>`<th>${esc(n)}</th>`).join("")}
+          </tr>
+        </thead>
+        <tbody>
+          ${rows.map((row,ri)=>`<tr>
+            <td>${esc(row.set||("S"+(ri+1)))}</td>
+            ${players.map((n,pi)=>editable
+              ?`<td><input type="number" inputmode="decimal" step="1" data-row="${ri}" data-player="${pi}" aria-label="${esc(row.set)} ${esc(n)}" value="${Number(row.scores?.[pi])||0}"></td>`
+              :`<td>${Number(row.scores?.[pi])||0}</td>`
+            ).join("")}
+          </tr>`).join("")}
+
+          <tr>
+            <td><b>TOTAL</b></td>
+            ${players.map((n,pi)=>`<td class="score-total" ${editable?`data-total="${pi}"`:""}>${sorted.find(x=>x.index===pi)?.points||0}</td>`).join("")}
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    ${editable?`
+      <div class="score-actions">
+        <button class="primary save" data-id="${s.id}">SIMPAN SKOR</button>
+        <button class="gold reset-input" data-id="${s.id}">RESET INPUT</button>
+        <button class="danger delete-session" data-id="${s.id}">HAPUS RIWAYAT</button>
+        ${s.type==="gugur"?`<button class="gold finish-round" data-id="${s.id}">SELESAIKAN 6 SET & GANTI 2 TERBAWAH</button>`:""}
+      </div>
+
+      ${s.type==="gugur"?`
+        <div class="reserve-box">
+          <b>Kelola pemain cadangan</b>
+          <div class="field">
+            <label>Daftar cadangan (pisahkan koma)</label>
+            <input class="reserve-edit" value="${esc((s.reserves||[]).join(", "))}" placeholder="CADANGAN 1, CADANGAN 2">
+          </div>
+          <button class="gold save-reserves" data-id="${s.id}">SIMPAN CADANGAN</button>
+          <p class="meta">Nama cadangan dapat diubah kapan saja, termasuk saat pertandingan berlangsung.</p>
+        </div>
+      `:""}
+
+      <p class="meta">Simpan Skor tidak mengosongkan formulir. Reset Input hanya mengosongkan kolom sementara dan tidak menghapus Live Score.</p>
+      <div class="meta winner-msg" aria-live="polite"></div>
+    `:""}
+  </article>`;
+}
+
+function renderLive(){
+  const date=$("liveDate").value||today();
+  const list=sessions.filter(s=>dateKey(s.date)===date);
+  const all=aggregate(list);
+
+  const details=list.map(s=>`
+    <div class="session">
+      <div class="session-title">
+        <b>${esc(s.name||"SISTEM GUGUR")}</b>
+        <span class="meta">${s.type==="gugur"?"Sistem Gugur":"Turnamen"} · ${esc(dateLabel(s.date))}</span>
+      </div>
+      ${rankHTML(s)}
+      <div class="score-wrap">
+        <table class="score-table">
+          <thead>
+            <tr>
+              <th>SET</th>
+              ${(s.players||[]).map(n=>`<th>${esc(n)}</th>`).join("")}
+            </tr>
+          </thead>
+          <tbody>
+            ${rowsOf(s).map((r,i)=>`<tr>
+              <td>${esc(r.set||("S"+(i+1)))}</td>
+              ${(s.players||[]).map((n,pi)=>`<td>${Number(r.scores?.[pi])||0}</td>`).join("")}
+            </tr>`).join("")}
+            <tr>
+              <td><b>TOTAL</b></td>
+              ${(s.players||[]).map((n,pi)=>`<td class="score-total">${playerTotal(s,n,pi)}</td>`).join("")}
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `).join("");
+
+  $("live").innerHTML=
+    (all.length?`<h3>Klasemen Gabungan</h3>${leagueHTML(all)}`:
+    '<div class="empty">Belum ada skor tersimpan untuk tanggal ini.</div>')+
+    (details?`<h3 style="margin-top:18px">Hasil per pertandingan · Juara dan Terendah</h3>${details}`:"");
+
+  $("stats").innerHTML=`
+    <div class="stat"><b>${list.length}</b><span>Pertandingan</span></div>
+    <div class="stat"><b>${list.reduce((n,s)=>n+rowsOf(s).length,0)}</b><span>Set tercatat</span></div>
+    <div class="stat"><b>${all.length}</b><span>Pemain terdata</span></div>
+  `;
+}
+
+function renderType(type){
+  const isT=type==="turnamen";
+  const dateInput=$(isT?"tournamentDate":"knockoutDate");
+  const adminPanel=$(isT?"tournamentAdmin":"knockoutAdmin");
+  const managePanel=$(isT?"tournamentManagePanel":"knockoutManagePanel");
+  const standings=$(isT?"tournamentStandings":"knockoutStandings");
+  const manage=$(isT?"tournamentManage":"knockoutManage");
+  const audience=$(isT?"tournamentAudience":"knockoutAudience");
+
+  adminPanel.classList.toggle("hidden",!admin);
+  managePanel.classList.toggle("hidden",!admin);
+
+  audience.textContent=admin
+    ?"Klasemen dan penginputan khusus admin."
+    :"Tampilan tamu: klasemen saja. Pilih tanggal untuk melihat hasil.";
+
+  if(!dateInput.value)dateInput.value=today();
+
+  const selected=sessions.filter(s=>
+    s.type===type&&dateKey(s.date)===dateInput.value
+  );
+
+  standings.innerHTML=leagueHTML(aggregate(selected));
+
+  if(admin){
+    manage.innerHTML=selected.map(s=>scoreCard(s,true)).join("")||
+      '<div class="empty">Belum ada pertandingan pada tanggal ini. Buat putaran di atas.</div>';
+  }else{
+    manage.innerHTML="";
+  }
+}
+
+function renderHistory(){
+  const list=[...sessions].sort((a,b)=>
+    new Date(b.date||0)-new Date(a.date||0)
+  );
+
+  $("history").innerHTML=list.length
+    ?list.map(s=>`
+      <div class="session">
+        <div class="session-title">
+          <b>${esc(s.name||"SISTEM GUGUR")}</b>
+          <span class="meta">${esc(dateLabel(s.date))} · ${s.type==="gugur"?"Sistem Gugur":"Turnamen"}</span>
+        </div>
+        ${rankHTML(s)}
+        ${admin?`<button class="danger history-delete" data-id="${s.id}">Hapus Riwayat Ini</button>`:""}
+      </div>
+    `).join("")
+    :'<div class="empty">Belum ada riwayat.</div>';
+}
+
+function renderAdmin(){
+  $("login").classList.toggle("hidden",!!user);
+  $("admin").classList.toggle("hidden",!user||!admin);
+  $("roleBadge").textContent=admin?"ADMIN":"TAMU";
+
+  if(user&&admin){
+    $("adminEmail").textContent="Username: DogyGode2";
+  }else{
+    $("changePasswordPanel").classList.add("hidden");
+    $("togglePasswordPanel").classList.remove("hidden");
+    $("changePasswordForm").reset();
+
+    if(user&&!admin){
+      msg("Akun berhasil masuk, tetapi belum terdaftar sebagai admin.");
+    }
+  }
+}
+
+function render(){
+  const drafts={};
+
+  ["tournamentManage","knockoutManage"].forEach(id=>{
+    const area=$(id);
+
+    area.querySelectorAll("article[data-id]").forEach(card=>{
+      const vals={};
+
+      card.querySelectorAll("input[data-row]").forEach(input=>{
+        vals[input.dataset.row+":"+input.dataset.player]=input.value;
+      });
+
+      drafts[card.dataset.id]=vals;
+    });
+  });
+
+  renderLive();
+  renderType("turnamen");
+  renderType("gugur");
+
+  Object.entries(drafts).forEach(([sid,vals])=>{
+    const card=document.querySelector(`article[data-id="${sid}"]`);
+    if(!card)return;
+
+    Object.entries(vals).forEach(([key,value])=>{
+      const [r,p]=key.split(":");
+      const input=card.querySelector(`input[data-row="${r}"][data-player="${p}"]`);
+      if(input)input.value=value;
+    });
+
+    card.querySelectorAll("[data-total]").forEach(cell=>{
+      const pi=cell.dataset.total;
+      let sum=0;
+
+      card.querySelectorAll(`input[data-player="${pi}"]`).forEach(input=>{
+        sum+=Number(input.value)||0;
+      });
+
+      cell.textContent=sum;
+    });
+  });
+
+  renderHistory();
+  renderAdmin();
+}
+
+function setPlayerInputs(target){
+  target.innerHTML=[1,2,3,4,5].map(i=>`
+    <div class="field">
+      <label>Nama pemain ${i}</label>
+      <input class="player" name="player${i}" required>
+    </div>
+  `).join("");
+}
+
+setPlayerInputs($("tournamentPlayers"));
+setPlayerInputs($("knockoutPlayers"));
+
+["liveDate","tournamentDate","knockoutDate"].forEach(id=>{
+  $(id).value=today();
+});
+
+const darkSaved=localStorage.getItem("ggsc-dark")==="1";
+document.body.classList.toggle("dark",darkSaved);
+$("themeToggle").textContent=darkSaved?"☀ Mode siang":"☾ Mode malam";
+
+$("themeToggle").onclick=()=>{
+  document.body.classList.toggle("dark");
+  const on=document.body.classList.contains("dark");
+  localStorage.setItem("ggsc-dark",on?"1":"0");
+  $("themeToggle").textContent=on?"☀ Mode siang":"☾ Mode malam";
+};
+
+$("nav").onclick=e=>{
+  const b=e.target.closest("[data-page]");
+  if(!b)return;
+
+  document.querySelectorAll(".page").forEach(p=>p.classList.add("hidden"));
+  $("page-"+b.dataset.page).classList.remove("hidden");
+
+  document.querySelectorAll(".tab").forEach(t=>
+    t.classList.toggle("active",t===b)
+  );
+};
+
+$("liveDate").onchange=renderLive;
+$("tournamentDate").onchange=()=>renderType("turnamen");
+$("knockoutDate").onchange=()=>renderType("gugur");
+
+document.addEventListener("input",e=>{
+  if(e.target.matches(".player,.reserve-edit")){
+    const pos=e.target.selectionStart;
+    e.target.value=e.target.value.toLocaleUpperCase("id-ID");
+
+    try{
+      e.target.setSelectionRange(pos,pos);
+    }catch(_){}
+  }
+});
+
+/* LOGIN: EMAIL ATAU USERNAME */
 $("loginForm").onsubmit=async e=>{
-e.preventDefault();
-const submit=e.currentTarget.querySelector('button[type="submit"],button:not([type])');
-const identity=$("username").value.trim();
-const normalized=identity.toLowerCase().replace(/[^a-z0-9]/g,"");
-const email=identity.includes("@")?identity.toLowerCase():(normalized==="dogygode2"?"bardaidihome@gmail.com":null);
-if(!email){msg("Username tidak dikenali. Gunakan DogyGode2 atau email akun Firebase.");return;}
-if(submit){submit.disabled=true;submit.textContent="Memeriksa akun…";}
-try{
- await signInWithEmailAndPassword(auth,email,$("password").value);
- msg("Login berhasil. Memeriksa hak akses administrator…");
-}catch(err){
- const messages={
- "auth/invalid-email":"Format email tidak valid.",
- "auth/user-not-found":"Akun Firebase tidak ditemukan. Periksa email akun.",
- "auth/wrong-password":"Password salah. Gunakan password akun Firebase yang terakhir berlaku.",
- "auth/invalid-credential":"Email/username atau password tidak cocok. Coba email bardaidihome@gmail.com dengan password Firebase yang terakhir berlaku.",
- "auth/too-many-requests":"Terlalu banyak percobaan. Tunggu beberapa menit sebelum mencoba lagi.",
- "auth/network-request-failed":"Koneksi internet bermasalah. Periksa jaringan lalu coba lagi.",
- "auth/user-disabled":"Akun Firebase ini dinonaktifkan."
- };
- msg("Login gagal: "+(messages[err.code]||err.message)+" ["+(err.code||"unknown")+"]");
-}finally{if(submit){submit.disabled=false;submit.textContent="Masuk";}}
-};$("logout").onclick=()=>signOut(auth);$("changePasswordForm").onsubmit=async e=>{e.preventDefault();if(!user||!admin)return msg("Login admin diperlukan.");const current=$("currentPassword").value,newPass=$("newPassword").value,confirmPass=$("confirmPassword").value;if(newPass.length<6)return msg("Password baru minimal 6 karakter.");if(newPass!==confirmPass)return msg("Ulangan password baru tidak sama.");try{const credential=EmailAuthProvider.credential("bardaidihome@gmail.com",current);await reauthenticateWithCredential(user,credential);await updatePassword(user,newPass);e.currentTarget.reset();msg("Password admin berhasil diganti. Gunakan password baru untuk login berikutnya.");}catch(err){msg("Gagal mengganti password: "+(err.code==="auth/wrong-password"?"Password saat ini salah.":err.code==="auth/requires-recent-login"?"Silakan keluar, login kembali, lalu ulangi ganti password.":err.message));}};
-async function createSession(type,form){if(!admin)return msg("Akses admin diperlukan.");const fd=new FormData(form),players=[1,2,3,4,5].map(i=>String(fd.get("player"+i)||"").trim().toLocaleUpperCase("id-ID"));if(players.some(x=>!x)||new Set(players.map(x=>x.toLowerCase())).size!==5)return msg("Masukkan lima nama pemain yang berbeda.");const isT=type==="turnamen",name=isT?String(fd.get("name")||"").trim():"SISTEM GUGUR",date=isT?String(fd.get("date")||""):localStamp(),reserves=isT?[]:String(fd.get("reserves")||"").split(",").map(x=>x.trim().toLocaleUpperCase("id-ID")).filter(Boolean);if(isT&&(!name||!date))return msg("Isi nama sesi dan tanggal turnamen.");try{await addDoc(collection(db,"sessions"),{name,date,type,players,reserves,playerTotals:{},scoreRows:blankRows(),liveScoreRows:blankRows(),createdAt:serverTimestamp(),createdBy:user.uid,updatedAt:serverTimestamp()});form.reset();msg("Pertandingan berhasil dibuat. Formulir skor tersedia di bawah pada halaman ini.");}catch(err){msg("Gagal membuat pertandingan: "+err.message);}}
-$("tournamentForm").onsubmit=e=>{e.preventDefault();createSession("turnamen",e.currentTarget);};$("knockoutForm").onsubmit=e=>{e.preventDefault();createSession("gugur",e.currentTarget);};
-function readRows(box){return Array.from({length:6},(_,ri)=>({set:"S"+(ri+1),scores:Array.from({length:5},(_,pi)=>{const input=box.querySelector(`[data-row="${ri}"][data-player="${pi}"]`);return input?Number(input.value)||0:0;})}));}
-async function manageAction(e,type){const button=e.target.closest("button");if(!button)return;const box=button.closest("article[data-id]"),s=sessions.find(x=>x.id===button.dataset.id);if(!s||!box)return;
-if(button.classList.contains("save")){try{const rows=readRows(box);if(rows.length!==6||rows.some(r=>r.scores.length!==5))throw new Error("Format input skor tidak lengkap.");await updateDoc(doc(db,"sessions",s.id),{scoreRows:rows,liveScoreRows:rows,livePublishedAt:serverTimestamp(),updatedAt:serverTimestamp()});
-// Segarkan Live Score admin langsung; perangkat lain menerima perubahan yang sama dari onSnapshot.
-const localSession=sessions.find(x=>x.id===s.id);if(localSession){localSession.scoreRows=rows;localSession.liveScoreRows=rows;localSession.livePublishedAt=Date.now();}
-const publishedDate=dateKey(s.date);if(publishedDate)$("liveDate").value=publishedDate;renderLive();msg("BERHASIL: skor Sistem Gugur diterbitkan ke Live Score. Semua perangkat akan menerima pembaruan otomatis.");}catch(err){msg("GAGAL menyimpan skor: "+err.message);}}
-else if(button.classList.contains("reset-input")){box.querySelectorAll("input[data-row]").forEach(i=>i.value="0");box.querySelectorAll("[data-total]").forEach(i=>i.textContent="0");msg("Input sementara dikosongkan. Data yang sudah tersimpan di Live Score tidak dihapus.");}
-else if(button.classList.contains("save-reserves")){const reserves=box.querySelector(".reserve-edit").value.split(",").map(x=>x.trim().toLocaleUpperCase("id-ID")).filter(Boolean);try{await updateDoc(doc(db,"sessions",s.id),{reserves,updatedAt:serverTimestamp()});msg("Daftar cadangan diperbarui.");}catch(err){msg("Gagal menyimpan cadangan: "+err.message);}}
-else if(button.classList.contains("finish-round")){const reserves=[...(s.reserves||[])];if(reserves.length<2)return msg("Masukkan minimal dua pemain cadangan.");const ranking=totals(s).slice().sort((a,b)=>a.points-b.points);if(!confirm("Selesaikan enam set dan ganti dua pemain terbawah? Poin pemain lama akan tetap diakumulasikan."))return;const totalsArchive={...(s.playerTotals||{})};for(const p of totals(s))totalsArchive[p.name]=p.points;const players=[...(s.players||[])];ranking.slice(0,2).forEach((p,i)=>{players[p.index]=reserves.shift();});try{await updateDoc(doc(db,"sessions",s.id),{players,reserves,playerTotals:totalsArchive,scoreRows:blankRows(),liveScoreRows:blankRows(),livePublishedAt:serverTimestamp(),updatedAt:serverTimestamp()});msg("Dua pemain terbawah diganti. Poin lama tetap tercatat dalam akumulasi.");}catch(err){msg("Gagal mengganti pemain: "+err.message);}}
-else if(button.classList.contains("delete-session")){if(!confirm("Hapus riwayat pertandingan ini secara permanen?"))return;try{await deleteDoc(doc(db,"sessions",s.id));msg("Riwayat pertandingan dihapus.");}catch(err){msg("Gagal menghapus riwayat: "+err.message);}}
+  e.preventDefault();
+
+  const submit=e.currentTarget.querySelector('button[type="submit"],button:not([type])');
+  const identity=$("username").value.trim();
+  const normalized=identity.toLowerCase();
+
+  const usernameMap={
+    "dogygode2":"bardaidihome@gmail.com"
+  };
+
+  const email=normalized.includes("@")
+    ?normalized
+    :usernameMap[normalized]||null;
+
+  if(!email){
+    msg("Username tidak dikenali. Gunakan DogyGode2 atau email akun Firebase.");
+    return;
+  }
+
+  if(submit){
+    submit.disabled=true;
+    submit.textContent="Memeriksa akun…";
+  }
+
+  try{
+    await signInWithEmailAndPassword(auth,email,$("password").value);
+    msg("Login berhasil. Memeriksa hak akses administrator…");
+  }catch(err){
+    const messages={
+      "auth/invalid-email":"Format email tidak valid.",
+      "auth/user-not-found":"Akun Firebase tidak ditemukan. Periksa email akun.",
+      "auth/wrong-password":"Password salah. Gunakan password akun Firebase yang terakhir berlaku.",
+      "auth/invalid-credential":"Email/username atau password tidak cocok. Coba email bardaidihome@gmail.com dengan password Firebase yang terakhir berlaku.",
+      "auth/too-many-requests":"Terlalu banyak percobaan. Tunggu beberapa menit sebelum mencoba lagi.",
+      "auth/network-request-failed":"Koneksi internet bermasalah. Periksa jaringan lalu coba lagi.",
+      "auth/user-disabled":"Akun Firebase ini dinonaktifkan."
+    };
+
+    msg("Login gagal: "+(messages[err.code]||err.message)+" ["+(err.code||"unknown")+"]");
+  }finally{
+    if(submit){
+      submit.disabled=false;
+      submit.textContent="Masuk";
+    }
+  }
+};
+
+/* LOGOUT */
+$("logout").onclick=()=>signOut(auth);
+
+/* TOMBOL TAMPILKAN FORM GANTI PASSWORD */
+$("togglePasswordPanel").onclick=()=>{
+  if(!user||!admin){
+    msg("Hanya administrator yang dapat mengganti password.");
+    return;
+  }
+
+  $("changePasswordPanel").classList.remove("hidden");
+  $("togglePasswordPanel").classList.add("hidden");
+};
+
+/* BATAL GANTI PASSWORD */
+$("cancelPasswordChange").onclick=()=>{
+  $("changePasswordForm").reset();
+  $("changePasswordPanel").classList.add("hidden");
+  $("togglePasswordPanel").classList.remove("hidden");
+};
+
+/* GANTI PASSWORD FIREBASE */
+$("changePasswordForm").onsubmit=async e=>{
+  e.preventDefault();
+
+  if(!user||!admin){
+    msg("Login administrator diperlukan.");
+    return;
+  }
+
+  const current=$("currentPassword").value;
+  const newPass=$("newPassword").value;
+  const confirmPass=$("confirmPassword").value;
+
+  if(newPass.length<6){
+    msg("Password baru minimal 6 karakter.");
+    return;
+  }
+
+  if(newPass!==confirmPass){
+    msg("Ulangan password baru tidak sama.");
+    return;
+  }
+
+  if(newPass===current){
+    msg("Password baru harus berbeda dari password lama.");
+    return;
+  }
+
+  const submit=e.currentTarget.querySelector('button[type="submit"]');
+  submit.disabled=true;
+  submit.textContent="Menyimpan password…";
+
+  try{
+    const credential=EmailAuthProvider.credential(
+      user.email,
+      current
+    );
+
+    await reauthenticateWithCredential(user,credential);
+    await updatePassword(user,newPass);
+
+    $("changePasswordForm").reset();
+    $("changePasswordPanel").classList.add("hidden");
+    $("togglePasswordPanel").classList.remove("hidden");
+
+    msg("Password berhasil diganti. Gunakan password baru untuk login berikutnya.");
+  }catch(err){
+    const messages={
+      "auth/wrong-password":"Password saat ini salah.",
+      "auth/invalid-credential":"Password saat ini tidak cocok.",
+      "auth/weak-password":"Password baru terlalu lemah.",
+      "auth/requires-recent-login":"Silakan keluar dan login kembali sebelum mengganti password."
+    };
+
+    msg("Gagal mengganti password: "+(messages[err.code]||err.message));
+  }finally{
+    submit.disabled=false;
+    submit.textContent="SIMPAN PASSWORD BARU";
+  }
+};
+
+/* MEMBUAT PERTANDINGAN */
+async function createSession(type,form){
+  if(!admin)return msg("Akses admin diperlukan.");
+
+  const fd=new FormData(form);
+  const players=[1,2,3,4,5].map(i=>
+    String(fd.get("player"+i)||"").trim().toLocaleUpperCase("id-ID")
+  );
+
+  if(players.some(x=>!x)||new Set(players.map(x=>x.toLowerCase())).size!==5){
+    return msg("Masukkan lima nama pemain yang berbeda.");
+  }
+
+  const isT=type==="turnamen";
+  const name=isT?String(fd.get("name")||"").trim():"SISTEM GUGUR";
+  const date=isT?String(fd.get("date")||""):localStamp();
+
+  const reserves=isT?[]:
+    String(fd.get("reserves")||"").split(",")
+      .map(x=>x.trim().toLocaleUpperCase("id-ID"))
+      .filter(Boolean);
+
+  if(isT&&(!name||!date)){
+    return msg("Isi nama sesi dan tanggal turnamen.");
+  }
+
+  try{
+    await addDoc(collection(db,"sessions"),{
+      name,
+      date,
+      type,
+      players,
+      reserves,
+      playerTotals:{},
+      scoreRows:blankRows(),
+      liveScoreRows:blankRows(),
+      createdAt:serverTimestamp(),
+      createdBy:user.uid,
+      updatedAt:serverTimestamp()
+    });
+
+    form.reset();
+    msg("Pertandingan berhasil dibuat. Formulir skor tersedia di bawah pada halaman ini.");
+  }catch(err){
+    msg("Gagal membuat pertandingan: "+err.message);
+  }
 }
-$("tournamentManage").onclick=e=>manageAction(e,"turnamen");$("knockoutManage").onclick=e=>manageAction(e,"gugur");$("history").onclick=async e=>{const b=e.target.closest(".history-delete");if(!b||!admin)return;if(!confirm("Hapus riwayat pertandingan ini?"))return;try{await deleteDoc(doc(db,"sessions",b.dataset.id));msg("Riwayat dihapus.");}catch(err){msg("Gagal menghapus: "+err.message);}};
-["tournamentManage","knockoutManage"].forEach(id=>{const area=$(id);area.addEventListener("input",e=>{const input=e.target;if(!input.matches("input[data-row]"))return;const box=input.closest("[data-id]");for(let pi=0;pi<5;pi++){let sum=0;box.querySelectorAll(`input[data-player="${pi}"]`).forEach(el=>sum+=Number(el.value)||0);const cell=box.querySelector(`[data-total="${pi}"]`);if(cell)cell.textContent=sum;}});area.addEventListener("keydown",e=>{if(e.key!=="Enter"||!e.target.matches("input[data-row]"))return;e.preventDefault();const inputs=[...e.target.closest("tbody").querySelectorAll("input[data-row]")],index=inputs.indexOf(e.target);if(inputs[index+1])inputs[index+1].focus();else e.target.blur();});});
-try{const app=initializeApp(firebaseConfig);auth=getAuth(app);db=getFirestore(app);onSnapshot(query(collection(db,"sessions"),orderBy("createdAt","desc")),snapshot=>{sessions=snapshot.docs.map(d=>({id:d.id,...d.data()}));render();status("Terhubung · sinkronisasi real-time","ok");},err=>{status("Database bermasalah","bad");msg(err.message);});onAuthStateChanged(auth,async currentUser=>{user=currentUser;admin=false;if(currentUser){try{admin=(await getDoc(doc(db,"admins",currentUser.uid))).exists();}catch(err){msg("Gagal memeriksa hak admin: "+err.message);}}render();});}catch(err){status("Gagal memulai Firebase","bad");msg(err.message);}
-</script></body></html>
+
+$("tournamentForm").onsubmit=e=>{
+  e.preventDefault();
+  createSession("turnamen",e.currentTarget);
+};
+
+$("knockoutForm").onsubmit=e=>{
+  e.preventDefault();
+  createSession("gugur",e.currentTarget);
+};
+
+function readRows(box){
+  return Array.from({length:6},(_,ri)=>({
+    set:"S"+(ri+1),
+    scores:Array.from({length:5},(_,pi)=>{
+      const input=box.querySelector(`[data-row="${ri}"][data-player="${pi}"]`);
+      return input?Number(input.value)||0:0;
+    })
+  }));
+}
+
+/* AKSI PENGELOLAAN SKOR */
+async function manageAction(e,type){
+  const button=e.target.closest("button");
+  if(!button)return;
+
+  const box=button.closest("article[data-id]");
+  const s=sessions.find(x=>x.id===button.dataset.id);
+
+  if(!s||!box)return;
+
+  if(button.classList.contains("save")){
+    try{
+      const rows=readRows(box);
+
+      if(rows.length!==6||rows.some(r=>r.scores.length!==5)){
+        throw new Error("Format input skor tidak lengkap.");
+      }
+
+      await updateDoc(doc(db,"sessions",s.id),{
+        scoreRows:rows,
+        liveScoreRows:rows,
+        livePublishedAt:serverTimestamp(),
+        updatedAt:serverTimestamp()
+      });
+
+      const localSession=sessions.find(x=>x.id===s.id);
+
+      if(localSession){
+        localSession.scoreRows=rows;
+        localSession.liveScoreRows=rows;
+        localSession.livePublishedAt=Date.now();
+      }
+
+      const publishedDate=dateKey(s.date);
+      if(publishedDate)$("liveDate").value=publishedDate;
+
+      renderLive();
+
+      msg("BERHASIL: skor diterbitkan ke Live Score. Semua perangkat akan menerima pembaruan otomatis.");
+    }catch(err){
+      msg("GAGAL menyimpan skor: "+err.message);
+    }
+  }
+
+  else if(button.classList.contains("reset-input")){
+    box.querySelectorAll("input[data-row]").forEach(i=>i.value="0");
+    box.querySelectorAll("[data-total]").forEach(i=>i.textContent="0");
+
+    msg("Input sementara dikosongkan. Data yang sudah tersimpan di Live Score tidak dihapus.");
+  }
+
+  else if(button.classList.contains("save-reserves")){
+    const reserves=box.querySelector(".reserve-edit").value
+      .split(",")
+      .map(x=>x.trim().toLocaleUpperCase("id-ID"))
+      .filter(Boolean);
+
+    try{
+      await updateDoc(doc(db,"sessions",s.id),{
+        reserves,
+        updatedAt:serverTimestamp()
+      });
+
+      msg("Daftar cadangan diperbarui.");
+    }catch(err){
+      msg("Gagal menyimpan cadangan: "+err.message);
+    }
+  }
+
+  else if(button.classList.contains("finish-round")){
+    const reserves=[...(s.reserves||[])];
+
+    if(reserves.length<2){
+      return msg("Masukkan minimal dua pemain cadangan.");
+    }
+
+    const ranking=totals(s).slice().sort((a,b)=>a.points-b.points);
+
+    if(!confirm("Selesaikan enam set dan ganti dua pemain terbawah? Poin pemain lama akan tetap diakumulasikan.")){
+      return;
+    }
+
+    const totalsArchive={...(s.playerTotals||{})};
+
+    for(const p of totals(s)){
+      totalsArchive[p.name]=p.points;
+    }
+
+    const players=[...(s.players||[])];
+
+    ranking.slice(0,2).forEach((p,i)=>{
+      players[p.index]=reserves.shift();
+    });
+
+    try{
+      await updateDoc(doc(db,"sessions",s.id),{
+        players,
+        reserves,
+        playerTotals:totalsArchive,
+        scoreRows:blankRows(),
+        liveScoreRows:blankRows(),
+        livePublishedAt:serverTimestamp(),
+        updatedAt:serverTimestamp()
+      });
+
+      msg("Dua pemain terbawah diganti. Poin lama tetap tercatat dalam akumulasi.");
+    }catch(err){
+      msg("Gagal mengganti pemain: "+err.message);
+    }
+  }
+
+  else if(button.classList.contains("delete-session")){
+    if(!confirm("Hapus riwayat pertandingan ini secara permanen?"))return;
+
+    try{
+      await deleteDoc(doc(db,"sessions",s.id));
+      msg("Riwayat pertandingan dihapus.");
+    }catch(err){
+      msg("Gagal menghapus riwayat: "+err.message);
+    }
+  }
+}
+
+$("tournamentManage").onclick=e=>manageAction(e,"turnamen");
+$("knockoutManage").onclick=e=>manageAction(e,"gugur");
+
+$("history").onclick=async e=>{
+  const b=e.target.closest(".history-delete");
+  if(!b||!admin)return;
+
+  if(!confirm("Hapus riwayat pertandingan ini?"))return;
+
+  try{
+    await deleteDoc(doc(db,"sessions",b.dataset.id));
+    msg("Riwayat dihapus.");
+  }catch(err){
+    msg("Gagal menghapus: "+err.message);
+  }
+};
+
+/* PERHITUNGAN TOTAL INPUT */
+["tournamentManage","knockoutManage"].forEach(id=>{
+  const area=$(id);
+
+  area.addEventListener("input",e=>{
+    const input=e.target;
+
+    if(!input.matches("input[data-row]"))return;
+
+    const box=input.closest("[data-id]");
+
+    for(let pi=0;pi<5;pi++){
+      let sum=0;
+
+      box.querySelectorAll(`input[data-player="${pi}"]`).forEach(el=>{
+        sum+=Number(el.value)||0;
+      });
+
+      const cell=box.querySelector(`[data-total="${pi}"]`);
+      if(cell)cell.textContent=sum;
+    }
+  });
+
+  area.addEventListener("keydown",e=>{
+    if(e.key!=="Enter"||!e.target.matches("input[data-row]"))return;
+
+    e.preventDefault();
+
+    const inputs=[...e.target.closest("tbody").querySelectorAll("input[data-row]")];
+    const index=inputs.indexOf(e.target);
+
+    if(inputs[index+1]){
+      inputs[index+1].focus();
+    }else{
+      e.target.blur();
+    }
+  });
+});
+
+/* INISIALISASI FIREBASE */
+try{
+  const app=initializeApp(firebaseConfig);
+  auth=getAuth(app);
+  db=getFirestore(app);
+
+  onSnapshot(
+    query(collection(db,"sessions"),orderBy("createdAt","desc")),
+    snapshot=>{
+      sessions=snapshot.docs.map(d=>({
+        id:d.id,
+        ...d.data()
+      }));
+
+      render();
+      status("Terhubung · sinkronisasi real-time","ok");
+    },
+    err=>{
+      status("Database bermasalah","bad");
+      msg(err.message);
+    }
+  );
+
+  onAuthStateChanged(auth,async currentUser=>{
+    user=currentUser;
+    admin=false;
+
+    if(currentUser){
+      try{
+        admin=(await getDoc(doc(db,"admins",currentUser.uid))).exists();
+      }catch(err){
+        msg("Gagal memeriksa hak admin: "+err.message);
+      }
+    }
+
+    render();
+  });
+
+}catch(err){
+  status("Gagal memulai Firebase","bad");
+  msg(err.message);
+}
+</script>
+</body>
+</html>
