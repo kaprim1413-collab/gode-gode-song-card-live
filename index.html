@@ -42,8 +42,16 @@ const dateKey=v=>{if(!v)return"";if(typeof v==="string"){const iso=v.match(/^(\d
 const dateLabel=v=>{if(!v)return"";const d=new Date(v);return isNaN(d)?String(v):d.toLocaleString("id-ID",{dateStyle:"medium",timeStyle:"short"});};
 const blankRows=()=>Array.from({length:6},(_,i)=>({set:"S"+(i+1),scores:[0,0,0,0,0]}));
 const localStamp=()=>{const d=new Date();return `${today()}T${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}:${String(d.getSeconds()).padStart(2,"0")}`;};
-// Live Score membaca salinan skor yang secara eksplisit diterbitkan admin.
-function rowsOf(s){const published=Array.isArray(s.liveScoreRows)&&s.liveScoreRows.length===6?s.liveScoreRows:null;const saved=Array.isArray(s.scoreRows)&&s.scoreRows.length===6?s.scoreRows:null;return published||saved||blankRows();}
+// Live Score membaca skor terbitan. Jika dokumen lama memiliki liveScoreRows
+// kosong tetapi scoreRows sudah berisi angka, gunakan scoreRows agar poin tidak tertutup nol.
+function rowsHavePoints(rows){return Array.isArray(rows)&&rows.some(row=>Array.isArray(row.scores)&&row.scores.some(value=>Number(value)!==0));}
+function rowsOf(s){
+ const published=Array.isArray(s.liveScoreRows)&&s.liveScoreRows.length===6?s.liveScoreRows:null;
+ const saved=Array.isArray(s.scoreRows)&&s.scoreRows.length===6?s.scoreRows:null;
+ if(rowsHavePoints(published))return published;
+ if(rowsHavePoints(saved))return saved;
+ return published||saved||blankRows();
+}
 function playerTotal(s,name,index){const base=Number(s.playerTotals?.[name])||0;return base+rowsOf(s).reduce((sum,row)=>sum+(Number(row.scores?.[index])||0),0);}
 function totals(s){return(s.players||[]).map((name,index)=>({name,points:playerTotal(s,name,index),index})).sort((a,b)=>b.points-a.points||a.index-b.index);}
 function aggregate(list){const map=new Map();for(const s of list){(s.players||[]).forEach((name,index)=>{const key=name.toLocaleUpperCase("id-ID");const old=map.get(key)||{name:key,points:0,played:0};old.points+=playerTotal(s,name,index);old.played+=rowsOf(s).filter(row=>Number(row.scores?.[index])!==0).length;map.set(key,old);});Object.entries(s.playerTotals||{}).forEach(([name,points])=>{if(!(s.players||[]).includes(name)){const key=name.toLocaleUpperCase("id-ID"),old=map.get(key)||{name:key,points:0,played:0};old.points+=Number(points)||0;map.set(key,old);}});}return[...map.values()].sort((a,b)=>b.points-a.points||a.name.localeCompare(b.name));}
