@@ -68,9 +68,10 @@ nav{display:flex;gap:8px;overflow:auto;padding:13px 0;scrollbar-width:thin}
 .league .num{text-align:right;font-variant-numeric:tabular-nums}
 .league .pts{font-weight:950;text-align:right;color:#1d6044;font-size:15px}
 .league tr:first-child{background:#fffaf0}
-.league tr:first-child td:first-child{color:#b18a32}
 .session{border:1px solid var(--line);border-radius:15px;padding:13px;margin:12px 0;background:linear-gradient(145deg,var(--panel),var(--bg))}
 .session-title{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+
+/* TABEL SKOR DESKTOP */
 .score-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;-webkit-overflow-scrolling:touch}
 .score-table{width:100%;min-width:610px;border-collapse:collapse}
 .score-table th,.score-table td{text-align:center;padding:8px;border-bottom:1px solid var(--line);font-size:12px}
@@ -78,6 +79,9 @@ nav{display:flex;gap:8px;overflow:auto;padding:13px 0;scrollbar-width:thin}
 .score-table th:first-child,.score-table td:first-child{position:sticky;left:0;background:#f8faf8;z-index:2;font-weight:900}
 .score-table input{width:100%;min-width:70px;height:50px;text-align:center;border:1.5px solid #cbd9ce;border-radius:9px;font:850 18px system-ui;color:var(--felt);background:#fff;padding:5px}
 .score-table input:focus{outline:3px solid var(--glow);border-color:#a98535}
+
+/* TAMPILAN INPUT SKOR HP */
+.score-mobile{display:none}
 .score-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
 .score-actions button{flex:1 1 145px;min-height:46px}
 .rankline{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;margin:12px 0}
@@ -92,12 +96,13 @@ nav{display:flex;gap:8px;overflow:auto;padding:13px 0;scrollbar-width:thin}
 .loginbox .field{margin:10px 0}
 .reserve-box{background:#f6f2e6;border:1px solid #e9d8a9;padding:12px;border-radius:12px;margin-top:10px}
 .muted{color:var(--muted)}
+
 body.dark{--bg:#101b18;--panel:#192923;--ink:#edf4ee;--line:#30463a;--muted:#a3b5a9;background:radial-gradient(ellipse at 50% -20%,#234535 0,#101b18 65%);color:var(--ink)}
 body.dark .panel,body.dark .session{background:var(--panel);border-color:var(--line);color:var(--ink)}
 body.dark .tab{background:#1c3027;border-color:#395043;color:#dce9df}
 body.dark .tab.active,body.dark .primary{background:linear-gradient(135deg,#2a6048,#397653);color:#fff}
 body.dark .field label,body.dark .league td,body.dark .league th,body.dark .score-table td,body.dark .score-table th{color:var(--ink)}
-body.dark .field input,body.dark .field select,body.dark .score-table input{background:#102019;color:#f4f7f4;border-color:#405b4a}
+body.dark .field input,body.dark .field select,body.dark .score-table input,body.dark .mobile-score-input{background:#102019;color:#f4f7f4;border-color:#405b4a}
 body.dark .score-table th,body.dark .score-table th:first-child,body.dark .score-table td:first-child{background:#20372b;color:#e8f0e9}
 body.dark .stat,body.dark .rankbox{background:#20372b;border-color:#405b4a;color:var(--ink)}
 body.dark .stat b,body.dark .score-total,body.dark .league .pts{color:#f1ce78}
@@ -107,25 +112,55 @@ body.dark .reserve-box{background:#293729;border-color:#625438}
 body.dark .danger{background:#4b2925;color:#ffc5bb}
 body.dark .empty{border-color:#405b4a;color:var(--muted)}
 body.dark .footer{color:#91a398}
+
+/* RESPONSIVE */
 @media(max-width:700px){
-.wrap{padding:10px}
-.hero{padding:14px 12px 17px;border-radius:17px}
-.hero-tools{position:relative;top:auto;right:auto;align-items:center;margin:0 auto 8px}
-.hero h1{font-size:clamp(27px,8vw,38px)}
-.panel{padding:13px;border-radius:15px}
-.create-form{grid-template-columns:1fr}
-.create-players{grid-template-columns:repeat(2,minmax(0,1fr))}
-.create-players .field:last-child:nth-child(odd){grid-column:1/-1}
-.stats{gap:6px}
-.stat{padding:9px}
-.stat b{font-size:20px}
-.rankline{grid-template-columns:repeat(2,minmax(0,1fr))}
-.rankbox:last-child:nth-child(odd){grid-column:1/-1}
-.league td,.league th{padding:9px 8px}
-.score-table{min-width:610px}
-.score-table input{min-width:72px;height:54px}
-.score-actions button{flex:1 1 calc(50% - 8px);font-size:12px}
-.tab{padding:9px 12px}
+  .wrap{padding:9px}
+  .hero{padding:12px 10px 16px;border-radius:17px}
+  .hero-tools{position:relative;top:auto;right:auto;align-items:center;margin:0 auto 8px}
+  .hero h1{font-size:clamp(27px,8vw,38px)}
+  .panel{padding:11px;border-radius:15px}
+  .create-form{grid-template-columns:1fr}
+  .create-players{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .create-players .field:last-child:nth-child(odd){grid-column:1/-1}
+  .stats{gap:6px}
+  .stat{padding:9px}
+  .stat b{font-size:20px}
+  .rankline{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .rankbox:last-child:nth-child(odd){grid-column:1/-1}
+  .league td,.league th{padding:9px 8px}
+  .score-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+  .score-actions button{width:100%;min-width:0;min-height:48px;padding:9px 6px;font-size:11px}
+  .tab{padding:9px 12px}
+  .session{padding:10px;margin:10px 0}
+  .score-desktop{display:none!important}
+  .score-mobile{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;margin-top:12px}
+  .mobile-player-card{min-width:0;border:1px solid var(--line);border-radius:13px;padding:10px;background:#f7faf7}
+  .mobile-player-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:9px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+  .mobile-player-name{font-size:13px;font-weight:950;text-transform:uppercase;overflow-wrap:anywhere;min-width:0}
+  .mobile-player-total{flex-shrink:0;background:#e7f0e8;color:#1d6044;border-radius:9px;padding:5px 10px;font-weight:950;font-size:13px}
+  .mobile-set-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+  .mobile-set-field{display:grid;gap:4px;min-width:0;text-align:center}
+  .mobile-set-field label{font-size:10px;font-weight:900;color:var(--muted)}
+  .mobile-score-input{width:100%;min-width:0;height:49px;padding:4px;border:1.5px solid #cbd9ce;border-radius:10px;background:#fff;color:var(--felt);font:900 19px system-ui;text-align:center;outline:none;appearance:textfield;-moz-appearance:textfield}
+  .mobile-score-input::-webkit-inner-spin-button,.mobile-score-input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+  .mobile-score-input:focus{border-color:#a98535;outline:3px solid var(--glow);background:#fffdf5}
+  .mobile-total-row{display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding:10px 12px;border-radius:10px;background:#edf4ed;font-size:12px;font-weight:900}
+  .mobile-total-row strong{font-size:17px;color:#1d6044}
+  body.dark .mobile-player-card{background:#20372b;border-color:#405b4a}
+  body.dark .mobile-player-head{border-color:#405b4a}
+  body.dark .mobile-player-total{background:#314b38;color:#f1ce78}
+  body.dark .mobile-total-row{background:#293f30;color:#edf4ee}
+  body.dark .mobile-total-row strong{color:#f1ce78}
+  body.dark .mobile-score-input{background:#102019;color:#fff;border-color:#506b59}
+}
+@media(max-width:360px){
+  .wrap{padding:6px}
+  .panel{padding:9px}
+  .mobile-player-card{padding:8px}
+  .mobile-set-grid{gap:5px}
+  .mobile-score-input{height:46px;font-size:18px}
+  .score-actions button{font-size:10px}
 }
 </style>
 </head>
@@ -413,16 +448,15 @@ function rankHTML(s){
     <b>${esc(p.name)}</b><span>${p.points} poin</span>
   </div>`).join("")}</div>`;
 }
+
+/* MEMBUAT TAMPILAN INPUT DESKTOP DAN HP */
 function scoreCard(s,editable=false){
   const players=s.players||[];
   const rows=rowsOf(s);
   const sorted=totals(s);
-  return`<article class="session" data-id="${s.id}">
-    <div class="session-title"><b>${esc(s.name||"SISTEM GUGUR")}</b>
-      <span class="meta">${s.type==="gugur"?"Sistem gugur":"Turnamen"} · ${esc(dateLabel(s.date))}</span>
-    </div>
-    ${rankHTML(s)}
-    <div class="score-wrap"><table class="score-table">
+
+  const desktopTable=`<div class="score-wrap score-desktop">
+    <table class="score-table">
       <thead><tr><th>SET</th>${players.map(n=>`<th>${esc(n)}</th>`).join("")}</tr></thead>
       <tbody>
         ${rows.map((row,ri)=>`<tr><td>${esc(row.set||("S"+(ri+1)))}</td>
@@ -432,7 +466,37 @@ function scoreCard(s,editable=false){
         </tr>`).join("")}
         <tr><td><b>TOTAL</b></td>${players.map((n,pi)=>`<td class="score-total" ${editable?`data-total="${pi}"`:""}>${sorted.find(x=>x.index===pi)?.points||0}</td>`).join("")}</tr>
       </tbody>
-    </table></div>
+    </table>
+  </div>`;
+
+  const mobileCards=editable?`<div class="score-mobile">
+    ${players.map((name,pi)=>`
+      <div class="mobile-player-card">
+        <div class="mobile-player-head">
+          <div class="mobile-player-name">${esc(name)}</div>
+          <div class="mobile-player-total"><span data-total="${pi}">${sorted.find(x=>x.index===pi)?.points||0}</span> POIN</div>
+        </div>
+        <div class="mobile-set-grid">
+          ${rows.map((row,ri)=>`
+            <div class="mobile-set-field">
+              <label for="m-${s.id}-${pi}-${ri}">${esc(row.set||("S"+(ri+1)))}</label>
+              <input id="m-${s.id}-${pi}-${ri}" class="mobile-score-input" type="number" inputmode="decimal" step="1" data-row="${ri}" data-player="${pi}" aria-label="${esc(row.set)} ${esc(name)}" value="${Number(row.scores?.[pi])||0}">
+            </div>`).join("")}
+        </div>
+        <div class="mobile-total-row">
+          <span>TOTAL POIN ${esc(name)}</span>
+          <strong data-mobile-total="${pi}">${sorted.find(x=>x.index===pi)?.points||0}</strong>
+        </div>
+      </div>`).join("")}
+  </div>`:"";
+
+  return`<article class="session" data-id="${s.id}">
+    <div class="session-title"><b>${esc(s.name||"SISTEM GUGUR")}</b>
+      <span class="meta">${s.type==="gugur"?"Sistem gugur":"Turnamen"} · ${esc(dateLabel(s.date))}</span>
+    </div>
+    ${rankHTML(s)}
+    ${desktopTable}
+    ${mobileCards}
     ${editable?`
       <div class="score-actions">
         <button class="primary save" data-id="${s.id}">SIMPAN SKOR</button>
@@ -453,6 +517,36 @@ function scoreCard(s,editable=false){
     `:""}
   </article>`;
 }
+
+/* PILIH INPUT YANG SEDANG TAMPIL DI LAYAR */
+function visibleScoreInputs(box){
+  const mobile=window.matchMedia("(max-width:700px)").matches;
+  return [...box.querySelectorAll(mobile
+    ?".score-mobile input[data-row]"
+    :".score-desktop input[data-row]")];
+}
+function readRows(box){
+  const inputs=visibleScoreInputs(box);
+  return Array.from({length:6},(_,ri)=>({
+    set:"S"+(ri+1),
+    scores:Array.from({length:5},(_,pi)=>{
+      const input=inputs.find(el=>
+        Number(el.dataset.row)===ri&&Number(el.dataset.player)===pi
+      );
+      return input?Number(input.value)||0:0;
+    })
+  }));
+}
+function updateInputTotals(box){
+  for(let pi=0;pi<5;pi++){
+    let sum=0;
+    visibleScoreInputs(box).filter(el=>Number(el.dataset.player)===pi)
+      .forEach(el=>sum+=Number(el.value)||0);
+    box.querySelectorAll(`[data-total="${pi}"],[data-mobile-total="${pi}"]`)
+      .forEach(cell=>cell.textContent=sum);
+  }
+}
+
 function renderLive(){
   const date=$("liveDate").value||today();
   const list=sessions.filter(s=>dateKey(s.date)===date);
@@ -548,15 +642,10 @@ function render(){
     if(!card)return;
     Object.entries(vals).forEach(([key,value])=>{
       const [r,p]=key.split(":");
-      const input=card.querySelector(`input[data-row="${r}"][data-player="${p}"]`);
-      if(input)input.value=value;
+      card.querySelectorAll(`input[data-row="${r}"][data-player="${p}"]`)
+        .forEach(input=>input.value=value);
     });
-    card.querySelectorAll("[data-total]").forEach(cell=>{
-      const pi=cell.dataset.total;
-      let sum=0;
-      card.querySelectorAll(`input[data-player="${pi}"]`).forEach(input=>sum+=Number(input.value)||0);
-      cell.textContent=sum;
-    });
+    updateInputTotals(card);
   });
   renderHistory();
   renderAdmin();
@@ -724,15 +813,6 @@ $("knockoutForm").onsubmit=e=>{
   e.preventDefault();
   createSession("gugur",e.currentTarget);
 };
-function readRows(box){
-  return Array.from({length:6},(_,ri)=>({
-    set:"S"+(ri+1),
-    scores:Array.from({length:5},(_,pi)=>{
-      const input=box.querySelector(`[data-row="${ri}"][data-player="${pi}"]`);
-      return input?Number(input.value)||0:0;
-    })
-  }));
-}
 
 /* AKSI PENGELOLAAN SKOR */
 async function manageAction(e,type){
@@ -770,7 +850,7 @@ async function manageAction(e,type){
   }
   else if(button.classList.contains("reset-input")){
     box.querySelectorAll("input[data-row]").forEach(i=>i.value="0");
-    box.querySelectorAll("[data-total]").forEach(i=>i.textContent="0");
+    updateInputTotals(box);
     msg("Input sementara dikosongkan. Data yang sudah tersimpan di Live Score tidak dihapus.");
   }
   else if(button.classList.contains("save-reserves")){
@@ -820,27 +900,27 @@ $("history").onclick=async e=>{
   }catch(err){msg("Gagal menghapus: "+err.message);}
 };
 
-/* PERHITUNGAN TOTAL INPUT */
+/* HITUNG TOTAL OTOMATIS DAN PINDAH INPUT DENGAN ENTER */
 ["tournamentManage","knockoutManage"].forEach(id=>{
   const area=$(id);
   area.addEventListener("input",e=>{
     const input=e.target;
     if(!input.matches("input[data-row]"))return;
     const box=input.closest("[data-id]");
-    for(let pi=0;pi<5;pi++){
-      let sum=0;
-      box.querySelectorAll(`input[data-player="${pi}"]`).forEach(el=>sum+=Number(el.value)||0);
-      const cell=box.querySelector(`[data-total="${pi}"]`);
-      if(cell)cell.textContent=sum;
-    }
+    updateInputTotals(box);
   });
   area.addEventListener("keydown",e=>{
     if(e.key!=="Enter"||!e.target.matches("input[data-row]"))return;
     e.preventDefault();
-    const inputs=[...e.target.closest("tbody").querySelectorAll("input[data-row]")];
+    const box=e.target.closest("article[data-id]");
+    const inputs=visibleScoreInputs(box);
     const index=inputs.indexOf(e.target);
-    if(inputs[index+1])inputs[index+1].focus();
-    else e.target.blur();
+    if(inputs[index+1]){
+      inputs[index+1].focus();
+      inputs[index+1].select?.();
+    }else{
+      e.target.blur();
+    }
   });
 });
 
