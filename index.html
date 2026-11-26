@@ -32,7 +32,42 @@ function msg(s){$("notice").textContent=s;$("notice").classList.add("show")}func
 let auth,db,user=null,admin=false,sessions=[];
 function matches(p){return[[0,1],[0,2],[0,3],[1,2],[1,4],[2,4]].map((x,i)=>({number:i+1,playerA:p[x[0]],playerB:p[x[1]],scoreA:0,scoreB:0}))}
 function card(s){return `<article class="session"><b>${esc(s.name)}</b><div class="meta">${s.type==="gugur"?"Sistem gugur":"Turnamen"} · ${esc(s.date||"") } · 6 pertandingan</div><div class="players">${(s.players||[]).map((p,i)=>`<div class="chip"><b>${esc(p)}</b><small>Pemain ${i+1}</small></div>`).join("")}</div>${(s.matches||[]).map(m=>`<div class="match"><div class="meta">PERTANDINGAN ${m.number}</div><div class="versus"><div class="side"><strong>${esc(m.playerA)}</strong>${Number(m.scoreA)||0} poin</div><span class="vs">VS</span><div class="side right"><strong>${esc(m.playerB)}</strong>${Number(m.scoreB)||0} poin</div></div></div>`).join("")}${s.reserves?.length?`<div class="meta">Cadangan: ${s.reserves.map(esc).join(", ")}</div>`:""}</article>`}
-function render(){const latest=sessions[0];$("live").innerHTML=latest?card(latest):'<div class="empty">Belum ada pertandingan.</div>';$("stats").innerHTML=`<div class="stat"><b>${sessions.length}</b><span>Total sesi</span></div><div class="stat"><b>${sessions.reduce((n,s)=>n+(s.matches||[]).length,0)}</b><span>Pertandingan</span></div><div class="stat"><b>${new Set(sessions.flatMap(s=>s.players||[])).size}</b><span>Pemain</span></div>`;$("tournaments").innerHTML=sessions.filter(s=>s.type==="turnamen").map(card).join("")||'<div class="empty">Belum ada sesi turnamen.</div>';$("knockouts").innerHTML=sessions.filter(s=>s.type==="gugur").map(card).join("")||'<div class="empty">Belum ada sesi sistem gugur.</div>';$("history").innerHTML=sessions.map(card).join("")||'<div class="empty">Riwayat masih kosong.</div>';const t=new Map();sessions.forEach(s=>(s.matches||[]).forEach(m=>[[m.playerA,m.scoreA],[m.playerB,m.scoreB]].forEach(([n,v])=>{if(!n)return;let x=t.get(n)||{n,p:0,m:0};x.p+=Number(v)||0;x.m++;t.set(n,x)})));const rows=[...t.values()].sort((a,b)=>b.p-a.p);$("standings").innerHTML=rows.length?`<table><thead><tr><th>POS</th><th>NAMA</th><th class="rightnum">MAIN</th><th class="rightnum">POIN</th></tr></thead><tbody>${rows.map((r,i)=>`<tr><td>${i+1}</td><td><b>${esc(r.n)}</b></td><td class="rightnum">${r.m}</td><td class="rightnum"><b>${r.p}</b></td></tr>`).join("")}</tbody></table>`:'<div class="empty">Klasemen belum tersedia.</div>';renderAdmin()}
+function render(){const latest=sessions[0];$("live").innerHTML=latest?card(latest):'<div class="empty">Belum ada pertandingan.</div>';$("stats").innerHTML=`<div class="stat"><b>${sessions.length}</b><span>Total sesi</span></div><div class="stat"><b>${sessions.reduce((n,s)=>n+(s.matches||[]).length,0)}</b><span>Pertandingan</span></div><div class="stat"><b>${new Set(sessions.flatMap(s=>s.players||[])).size}</b><span>Pemain</span></div>`;$("tournaments").innerHTML=sessions.filter(s=>s.type==="turnamen").map(card).join("")||'<div class="empty">Belum ada sesi turnamen.</div>';$("knockouts").innerHTML=sessions.filter(s=>s.type==="gugur").map(card).join("")||'<div class="empty">Belum ada sesi sistem gugur.</div>';$("history").innerHTML=sessions.map(card).join("")||'<div class="empty">Riwayat masih kosong.</div>';const t=new Map();sessions.forEach(s=>(s.matches||[]).forEach(m=>[[m.playerA,m.scoreA],[m.playerB,m.scoreB]].forEach(([n,v])=>{if(!n)return;let x=t.get(n)||{n,p:0,m:0};x.p+=Number(v)||0;x.m++;t.set(n,x)})));
+const rows=[...t.values()].sort((a,b)=>b.p-a.p);
+
+let lastPoints=null;
+let currentRank=0;
+
+const rankedRows=rows.map((r,i)=>{
+  if(i===0 || r.p!==lastPoints){
+    currentRank=i+1;
+  }
+  lastPoints=r.p;
+  return {...r,rank:currentRank};
+});
+
+$("standings").innerHTML=rankedRows.length?`
+<table>
+  <thead>
+    <tr>
+      <th>POS</th>
+      <th>NAMA</th>
+      <th class="rightnum">MAIN</th>
+      <th class="rightnum">POIN</th>
+    </tr>
+  </thead>
+  <tbody>
+    ${rankedRows.map(r=>`
+      <tr>
+        <td><b>${r.rank}</b></td>
+        <td><b>${esc(r.n)}</b></td>
+        <td class="rightnum">${r.m}</td>
+        <td class="rightnum"><b>${r.p}</b></td>
+      </tr>
+    `).join("")}
+  </tbody>
+</table>`:'<div class="empty">Klasemen belum tersedia.</div>';
+renderAdmin()}
 function renderAdmin(){ $("login").classList.toggle("hidden",!!user);$("admin").classList.toggle("hidden",!user||!admin);if(user&&admin){$("adminEmail").textContent=user.email||"Administrator";renderManage()}else if(user&&!admin)msg("Login berhasil, tetapi akun belum memiliki hak admin. Daftarkan UID di koleksi admins.");}
 function renderManage(){if(!admin)return;$("manage").innerHTML=sessions.map(s=>`<div class="session" data-id="${s.id}"><b>${esc(s.name)}</b>${(s.matches||[]).map((m,i)=>`<div class="match"><div class="meta">PERTANDINGAN ${m.number}</div><div class="versus"><div class="side"><strong>${esc(m.playerA)}</strong><input type="number" min="0" data-i="${i}" data-k="scoreA" value="${Number(m.scoreA)||0}"></div><span class="vs">VS</span><div class="side right"><strong>${esc(m.playerB)}</strong><input type="number" min="0" data-i="${i}" data-k="scoreB" value="${Number(m.scoreB)||0}"></div></div></div>`).join("")}<button class="primary save" data-id="${s.id}">Simpan skor</button></div>`).join("")||'<div class="empty">Belum ada sesi.</div>'}
 $("nav").onclick=e=>{const b=e.target.closest("[data-page]");if(!b)return;document.querySelectorAll(".page").forEach(x=>x.classList.add("hidden"));$("page-"+b.dataset.page).classList.remove("hidden");document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x===b))};
